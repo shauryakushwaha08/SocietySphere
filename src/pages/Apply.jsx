@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import societies from "../data/societies";
+import { saveApplication } from "../utils/storage";
 
 function Apply() {
   const { id } = useParams();
@@ -13,6 +14,8 @@ function Apply() {
     role: "",
     why: "",
   });
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
   function handleChange(e) {
     setFormData((prev) => ({
@@ -20,19 +23,6 @@ function Apply() {
       [e.target.name]: e.target.value,
     }));
   }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const newErrors = validate();
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      console.log(formData);
-    }
-  }
-
-  const [errors, setErrors] = useState({});
 
   function validate() {
     const newErrors = {};
@@ -55,28 +45,87 @@ function Apply() {
     return newErrors;
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const newErrors = validate();
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      saveApplication({
+        ...formData,
+        societyId: society.id,
+        societyName: society.name,
+      });
+      setSubmitted(true);
+    }
+  }
+
   if (!society) {
     return <div>Society not found</div>;
   }
-
+  if (submitted) {
+    return (
+      <div>
+        <h1>Application Submitted!</h1>
+        <p>Thanks for applying to {society.name}. We'll be in touch.</p>
+      </div>
+    );
+  }
   return (
     <div>
       <h1>Apply to {society.name}</h1>
       <form onSubmit={handleSubmit}>
-        <input name="name" value={formData.name} onChange={handleChange} />
-        {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
+        <div>
+          <input
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+          {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
+        </div>
 
-        <input name="year" value={formData.year} onChange={handleChange} />
-        {errors.year && <p style={{ color: "red" }}>{errors.year}</p>}
+        <div>
+          <input
+            name="year"
+            placeholder="Year"
+            value={formData.year}
+            onChange={handleChange}
+          />
+          {errors.year && <p style={{ color: "red" }}>{errors.year}</p>}
+        </div>
 
-        <input name="branch" value={formData.branch} onChange={handleChange} />
-        {errors.branch && <p style={{ color: "red" }}>{errors.branch}</p>}
+        <div>
+          <input
+            name="branch"
+            placeholder="Branch"
+            value={formData.branch}
+            onChange={handleChange}
+          />
+          {errors.branch && <p style={{ color: "red" }}>{errors.branch}</p>}
+        </div>
 
-        <input name="role" value={formData.role} onChange={handleChange} />
-        {errors.role && <p style={{ color: "red" }}>{errors.role}</p>}
+        <div>
+          <input
+            name="role"
+            placeholder="Role"
+            value={formData.role}
+            onChange={handleChange}
+          />
+          {errors.role && <p style={{ color: "red" }}>{errors.role}</p>}
+        </div>
 
-        <input name="why" value={formData.why} onChange={handleChange} />
-        {errors.why && <p style={{ color: "red" }}>{errors.why}</p>}
+        <div>
+          <textarea
+            name="why"
+            placeholder="Why do you want to join? (Min 20 characters)"
+            value={formData.why}
+            onChange={handleChange}
+          />
+          {errors.why && <p style={{ color: "red" }}>{errors.why}</p>}
+        </div>
+
         <button type="submit">Submit Application</button>
       </form>
     </div>

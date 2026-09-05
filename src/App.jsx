@@ -1,16 +1,14 @@
-import societies from "./data/societies";
-import SocietyCard from "./components/SocietyCard";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Societies from "./pages/Societies";
 
 function App() {
   return (
-    <div>
-      <h1>SocietySphere</h1>
-
-      {societies.map((society) => (
-        <SocietyCard key={society.id} society={society} />
-      ))}
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/societies" element={<Societies />} />
+    </Routes>
   );
 }
 
-export default App
+export default App;

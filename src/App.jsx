@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Societies from "./pages/Societies";
 import Navbar from "./components/Navbar";
 import SocietyDetails from "./pages/SocietyDetails";
+import Apply from "./pages/Apply";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/societies" element={<Societies />} />
         <Route path="/society/:id" element={<SocietyDetails />} />
+        <Route path="/apply" element={<Apply />} />
       </Routes>
     </>
   );

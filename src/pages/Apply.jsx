@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import societies from "../data/societies";
 import { saveApplication } from "../utils/storage";
+import "./Apply.css";
 
 function Apply() {
   const { id } = useParams();
@@ -62,18 +63,18 @@ function Apply() {
   }
 
   if (!society) {
-    return <div>Society not found</div>;
+    return <div className="page-container">Society not found</div>;
   }
   if (submitted) {
     return (
-      <div>
+      <div className="page-container">
         <h1>Application Submitted!</h1>
         <p>Thanks for applying to {society.name}. We'll be in touch.</p>
       </div>
     );
   }
   return (
-    <div>
+    <div className="page-container">
       <h1>Apply to {society.name}</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -83,7 +84,7 @@ function Apply() {
             value={formData.name}
             onChange={handleChange}
           />
-          {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
+          {errors.name && <p className="error-text">{errors.name}</p>}
         </div>
 
         <div>
@@ -93,7 +94,7 @@ function Apply() {
             value={formData.year}
             onChange={handleChange}
           />
-          {errors.year && <p style={{ color: "red" }}>{errors.year}</p>}
+          {errors.year && <p className="error-text">{errors.year}</p>}
         </div>
 
         <div>
@@ -103,7 +104,7 @@ function Apply() {
             value={formData.branch}
             onChange={handleChange}
           />
-          {errors.branch && <p style={{ color: "red" }}>{errors.branch}</p>}
+          {errors.branch && <p className="error-text">{errors.branch}</p>}
         </div>
 
         <div>
@@ -113,7 +114,7 @@ function Apply() {
             value={formData.role}
             onChange={handleChange}
           />
-          {errors.role && <p style={{ color: "red" }}>{errors.role}</p>}
+          {errors.role && <p className="error-text">{errors.role}</p>}
         </div>
 
         <div>
@@ -123,7 +124,7 @@ function Apply() {
             value={formData.why}
             onChange={handleChange}
           />
-          {errors.why && <p style={{ color: "red" }}>{errors.why}</p>}
+          {errors.why && <p className="error-text">{errors.why}</p>}
         </div>
 
         <button type="submit">Submit Application</button>

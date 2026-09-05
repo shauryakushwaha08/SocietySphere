@@ -1,0 +1,22 @@
+.page-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.page-container form button {
+  display: inline-block;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 600;
+  min-height: 44px;
+  line-height: 1.5;
+}
+
+.error-text {
+  color: #d32f2f;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}

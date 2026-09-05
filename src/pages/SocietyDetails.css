@@ -1,0 +1,52 @@
+.page-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.details-page .category-tag {
+  display: inline-block;
+  background-color: var(--accent-color);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  margin: 0.5rem 0;
+}
+
+.details-page .description {
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+.details-page h3 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.roles-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.roles-list li {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.apply-btn {
+  display: inline-block;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.9rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  min-height: 44px;
+  line-height: 1.5;
+}

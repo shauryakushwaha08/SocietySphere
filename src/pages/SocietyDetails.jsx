@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import societies from "../data/societies";
+import "./SocietyDetails.css";
 
 function SocietyDetails() {
   const { id } = useParams();

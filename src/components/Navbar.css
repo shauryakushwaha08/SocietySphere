@@ -1,0 +1,14 @@
+.navbar {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar a {
+  padding: 0.5rem 1rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}

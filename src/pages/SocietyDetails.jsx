@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import societies from "../data/societies";
 
 function SocietyDetails() {
@@ -20,6 +20,7 @@ function SocietyDetails() {
           return <li key={index}>{role}</li>;
         })}
       </ul>
+      <Link to={`/apply/${id}`}>Apply Now</Link>
     </div>
   );
 }

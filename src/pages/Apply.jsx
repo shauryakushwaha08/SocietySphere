@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import societies from "../data/societies";
 
 function Apply() {
+  const { id } = useParams();
+  const society = societies.find((s) => s.id === id);
+
   const [formData, setFormData] = useState({
     name: "",
     year: "",
@@ -21,9 +26,13 @@ function Apply() {
     console.log(formData);
   }
 
+  if (!society) {
+    return <div>Society not found</div>;
+  }
+
   return (
     <div>
-      <h1>Apply</h1>
+      <h1>Apply to {society.name}</h1>
       <form onSubmit={handleSubmit}>
         <input name="name" value={formData.name} onChange={handleChange} />
         <input name="year" value={formData.year} onChange={handleChange} />

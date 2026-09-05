@@ -1,4 +1,5 @@
 import societies from "./data/societies";
+import SocietyCard from "./components/SocietyCard";
 
 function App() {
   return (
@@ -6,11 +7,7 @@ function App() {
       <h1>SocietySphere</h1>
 
       {societies.map((society) => (
-        <div key={society.id}>
-          <h2>{society.name}</h2>
-          <p>{society.category}</p>
-          <p>{society.tagline}</p>
-        </div>
+        <SocietyCard key={society.id} society={society} />
       ))}
     </div>
   );

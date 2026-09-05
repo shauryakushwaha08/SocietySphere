@@ -5,6 +5,7 @@ function Navbar() {
     <nav>
       <Link to="/">Home</Link>
       <Link to="/societies">Societies</Link>
+      <Link to="/applications">Applications</Link>
     </nav>
   );
 }

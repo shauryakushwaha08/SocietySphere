@@ -1,8 +1,12 @@
+.page-intro {
+  color: var(--text-soft);
+  margin: 0.5rem 0 1.5rem;
+}
+
 .society-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-  padding: 1rem;
 }
 
 @media (min-width: 640px) {

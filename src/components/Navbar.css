@@ -1,14 +1,40 @@
 .navbar {
   display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: var(--card-bg);
-  border-bottom: 1px solid var(--border-color);
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
 }
 
-.navbar a {
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-links a {
   padding: 0.5rem 1rem;
   min-height: 44px;
   display: flex;
   align-items: center;
+  color: var(--text-soft);
+  font-weight: 500;
+  border-radius: 6px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-links a:hover {
+  background-color: var(--surface-hover);
+  color: var(--text);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: var(--surface-hover);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

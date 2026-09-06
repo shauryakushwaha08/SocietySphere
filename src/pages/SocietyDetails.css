@@ -1,52 +1,59 @@
-.page-container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
+.details-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.details-page .category-tag {
-  display: inline-block;
-  background-color: var(--accent-color);
-  color: white;
-  font-size: 0.75rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  margin: 0.5rem 0;
+.logo-chip.large {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.logo-chip.large img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
 }
 
 .details-page .description {
+  color: var(--text-soft);
   margin-bottom: 1.5rem;
-  color: #444;
 }
 
 .details-page h3 {
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
   margin-bottom: 0.5rem;
+  font-size: 1.1rem;
 }
 
 .roles-list {
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
 }
 
 .roles-list li {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
+  padding: 0.6rem 0 0.6rem 0.75rem;
+  border-left: 3px solid;
+  margin-bottom: 0.5rem;
+  background-color: var(--surface);
+  border-radius: 0 4px 4px 0;
 }
 
 .apply-btn {
   display: inline-block;
-  background-color: var(--accent-color);
-  color: white;
+  color: #0A0A0C;
   padding: 0.9rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 6px;
   font-weight: 600;
   min-height: 44px;
   line-height: 1.5;
+  margin-top: 1rem;
 }

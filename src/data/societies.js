@@ -3,6 +3,7 @@ const societies = [
     id: "gdg",
     name: "GDG NSUT",
     category: "Tech",
+    logo: "/logos/gdg.png",
     tagline: "Connect. Learn. Grow",
     description:
       "At GDG NSUT, we aim to learn, teach and grow together. A place where creative minds build impactful technology.",
@@ -15,6 +16,7 @@ const societies = [
     id: "ieee",
     name: "IEEE NSUT",
     category: "Tech",
+    logo: "/logos/ieee.png",
     tagline: "Explore technology. Create impact.",
     description:
       "A technical community that encourages innovation, engineering, research, and professional development.",
@@ -27,6 +29,7 @@ const societies = [
     id: "tds",
     name: "TDS",
     category: "Tech",
+    logo: "/logos/tds.png",
     tagline: "Learn. Build. Compete.",
     description:
       "A student community focused on development, problem solving, and technical projects.",
@@ -40,6 +43,7 @@ const societies = [
     id: "dcode",
     name: "DCode",
     category: "Tech",
+    logo: "/logos/dcode.png",
     tagline: "Code your way forward.",
     description:
       "A coding-focused community for students who enjoy programming and building technical skills.",
@@ -52,6 +56,7 @@ const societies = [
     id: "literary",
     name: "Literary Society",
     category: "Literary",
+    logo: "/logos/literary.png",
     tagline: "Ideas. Words. Expression.",
     description:
       "A creative community for students interested in writing, debating, public speaking, and literature.",
@@ -64,6 +69,7 @@ const societies = [
     id: "sports",
     name: "Sports Committee",
     category: "Sports",
+    logo: "/logos/sports.png",
     tagline: "Play together. Grow together.",
     description:
       "A community bringing students together through sports, fitness activities, and campus events.",

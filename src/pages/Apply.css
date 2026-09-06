@@ -6,7 +6,7 @@
 
 .page-container form button {
   display: inline-block;
-  background-color: var(--accent-color);
+  background-color: var(--tech);
   color: white;
   padding: 0.9rem 1.5rem;
   border-radius: 20px;

@@ -6,8 +6,8 @@
 }
 
 .application-card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1rem 1.25rem;
 }
@@ -22,7 +22,7 @@
 }
 
 .society-tag {
-  background-color: var(--accent-color);
+  background-color: var(--tech);
   color: white;
   font-size: 0.75rem;
   padding: 0.2rem 0.6rem;
@@ -38,6 +38,6 @@
 
 .empty-state {
   margin-top: 1.5rem;
-  color: #777;
+  color: var(--surface);
   text-align: center;
 }

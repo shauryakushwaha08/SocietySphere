@@ -38,7 +38,7 @@ function SocietyDetails() {
             <img src={society.logo} alt={`${society.name} logo`} />
           </div>
           <div>
-            <div className="section-kicker">
+            <div className="section-kicker" style={{ color }}>
               {society.category.toUpperCase()} COMMUNITY
             </div>
             <h1>{society.name}</h1>
@@ -73,7 +73,7 @@ function SocietyDetails() {
           </div>
           <ul className="roles-list">
             {society.roles.map((role) => (
-              <li key={role} style={{ borderLeftColor: color }}>
+              <li key={role} style={{ borderLeftColor: "var(--tech)" }}>
                 <CheckCircle2 size={16} />
                 {role}
               </li>
@@ -91,7 +91,7 @@ function SocietyDetails() {
           <Link
             to={`/apply/${id}`}
             className="apply-btn"
-            style={{ backgroundColor: color }}
+            style={{ backgroundColor: "var(--tech)" }}
           >
             Start application <ArrowRight size={17} />
           </Link>

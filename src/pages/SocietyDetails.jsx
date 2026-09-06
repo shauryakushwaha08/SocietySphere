@@ -42,6 +42,9 @@ function SocietyDetails() {
               {society.category.toUpperCase()} COMMUNITY
             </div>
             <h1>{society.name}</h1>
+            {society.fullName !== society.name && (
+              <p className="full-name">{society.fullName}</p>
+            )}
             <p className="details-tagline">{society.tagline}</p>
           </div>
         </div>

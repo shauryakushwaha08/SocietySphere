@@ -2,6 +2,7 @@ const societies = [
   {
     id: "gdg",
     name: "GDG NSUT",
+    fullName: "Google Developer Groups NSUT",
     category: "Tech",
     logo: "/logos/gdg.png",
     tagline: "Connect. Learn. Grow",
@@ -15,6 +16,7 @@ const societies = [
   {
     id: "ieee",
     name: "IEEE NSUT",
+    fullName: "Institute of Electrical and Electronics Engineers NSUT",
     category: "Tech",
     logo: "/logos/ieee.png",
     tagline: "Explore technology. Create impact.",
@@ -28,6 +30,7 @@ const societies = [
   {
     id: "tds",
     name: "TDS",
+    fullName: "The Debugging Society",
     category: "Tech",
     logo: "/logos/tds.png",
     tagline: "Learn. Build. Compete.",
@@ -42,6 +45,7 @@ const societies = [
   {
     id: "dcode",
     name: "DCode",
+    fullName: "DCode",
     category: "Tech",
     logo: "/logos/dcode.png",
     tagline: "Code your way forward.",
@@ -55,6 +59,7 @@ const societies = [
   {
     id: "literary",
     name: "Literary Society",
+    fullName: "Shubhasha",
     category: "Literary",
     logo: "/logos/literary.png",
     tagline: "Ideas. Words. Expression.",
@@ -68,6 +73,7 @@ const societies = [
   {
     id: "sports",
     name: "Sports Committee",
+    fullName: "Venatus Gaming",
     category: "Sports",
     logo: "/logos/sports.png",
     tagline: "Play together. Grow together.",

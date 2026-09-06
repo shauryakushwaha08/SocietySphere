@@ -62,6 +62,12 @@
   line-height: 1;
 }
 
+.full-name {
+  color: var(--text-soft);
+  font-size: 1rem;
+  margin-top: 0.15rem;
+}
+
 .details-tagline {
   color: var(--text-soft);
   margin-top: 0.45rem;

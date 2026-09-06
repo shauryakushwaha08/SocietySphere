@@ -11,9 +11,14 @@ function Societies() {
   const categories = ["All", ...new Set(societies.map((s) => s.category))];
 
   const filteredSocieties = societies.filter((society) => {
-    const matchesCategory = activeCategory === "All" || society.category === activeCategory;
-    const searchText = `${society.name} ${society.tagline} ${society.category}`.toLowerCase();
-    return matchesCategory && searchText.includes(query.toLowerCase());
+    const matchesCategory =
+      activeCategory === "All" || society.category === activeCategory;
+
+    const searchText =
+      `${society.name} ${society.fullName} ${society.tagline} ${society.category}`.toLowerCase();
+    const matchesSearch = searchText.includes(query.toLowerCase());
+
+    return matchesCategory && matchesSearch;
   });
 
   return (

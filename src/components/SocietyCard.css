@@ -107,8 +107,8 @@
 }
 
 .status-badge.closed {
-  background-color: rgba(154, 152, 147, 0.15);
-  color: var(--text-soft);
+  background-color: rgba(232, 115, 90, 0.15);
+  color: var(--danger);
 }
 
 @media (max-width: 420px) {

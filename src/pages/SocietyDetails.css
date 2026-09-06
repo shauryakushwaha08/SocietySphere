@@ -150,6 +150,10 @@
   margin-top: 1rem;
 }
 
+.closed{
+  color: var(--danger) !important;
+}
+
 .details-footer {
   display: flex;
   justify-content: space-between;

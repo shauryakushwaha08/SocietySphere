@@ -22,7 +22,7 @@ const societies = [
       "A technical community that encourages innovation, engineering, research, and professional development.",
     eligibility: "Open to students interested in engineering and technology.",
     roles: ["Technical", "Design", "Management"],
-    recruitmentOpen: true,
+    recruitmentOpen: false,
   },
 
   {

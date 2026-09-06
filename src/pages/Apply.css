@@ -36,7 +36,7 @@
   margin-top: 1rem;
 }
 
-.form-note svg { color: var(--tech); }
+.form-note svg { color: var(--theme); }
 
 .application-form {
   display: flex;
@@ -57,7 +57,7 @@
 }
 
 .form-heading > span {
-  color: var(--tech);
+  color: var(--theme);
   font-family: var(--font-heading);
   font-size: 1.25rem;
   font-weight: 700;
@@ -83,7 +83,7 @@
   margin-bottom: 0.4rem;
 }
 
-.field label span { color: var(--literary); }
+.field label span { color: var(--danger); }
 
 .label-row {
   display: flex;
@@ -100,7 +100,7 @@
   justify-content: center;
   gap: 0.55rem;
   width: 100%;
-  background: var(--tech);
+  background: var(--theme);
   color: var(--bg);
   padding: 0.9rem 1.5rem;
   border-radius: 6px;
@@ -112,7 +112,7 @@
 .application-form button:hover { filter: brightness(1.08); }
 
 .error-text {
-  color: var(--literary);
+  color: var(--danger);
   font-size: 0.78rem;
   margin-top: 0.3rem;
 }
@@ -130,7 +130,7 @@
   height: 72px;
   margin: 0 auto 1.5rem;
   border-radius: 50%;
-  color: var(--tech);
+  color: var(--theme);
   background: rgba(61, 220, 151, 0.12);
 }
 
@@ -146,7 +146,7 @@
   font-weight: 600;
 }
 
-.secondary-btn:hover { border-color: var(--tech); color: var(--tech); }
+.secondary-btn:hover { border-color: var(--theme); color: var(--theme); }
 
 @media (max-width: 720px) {
   .apply-layout { grid-template-columns: 1fr; margin-top: 2.5rem; }

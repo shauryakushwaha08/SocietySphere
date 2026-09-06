@@ -6,8 +6,10 @@
   --text: #F2F1ED;
   --text-soft: #9A9893;
   --danger: #E8735A;
+  --success: #3DDC97;
+  --theme: #3DDC97;
 
-  --tech: #3DDC97;
+  --tech: #4FA8E8;
   --literary: #E8735A;
   --sports: #E8B339;
 
@@ -23,8 +25,9 @@
   --text: #22252A;
   --text-soft: #5A5750;
   --danger: #B23A2E;
+  --success: #2F6F4E;
 
-  --tech: #2F6F4E;
+  --tech: #1D6FA5;
   --literary: #8A3B2E;
   --sports: #B8860B;
 }
@@ -66,12 +69,12 @@ button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid var(--tech);
+  outline: 2px solid var(--theme);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: var(--tech);
+  background: var(--theme);
   color: var(--bg);
 }
 

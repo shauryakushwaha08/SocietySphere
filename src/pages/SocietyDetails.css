@@ -10,7 +10,7 @@
 
 .back-link:hover,
 .text-link:hover {
-  color: var(--tech);
+  color: var(--theme);
 }
 
 .details-page {
@@ -48,8 +48,8 @@
 }
 
 .logo-chip.large img {
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
@@ -85,7 +85,7 @@
   font-weight: 600;
 }
 
-.details-status.open { color: var(--tech); }
+.details-status.open { color: var(--theme); }
 .details-status.closed { color: var(--text-soft); }
 
 .details-page .description {
@@ -120,7 +120,7 @@
   align-items: center;
   gap: 0.55rem;
   margin-bottom: 0.75rem;
-  color: var(--tech);
+  color: var(--theme);
 }
 
 .section-heading h2 {
@@ -154,6 +154,10 @@
   min-height: 44px;
   line-height: 1.5;
   margin-top: 1rem;
+}
+
+.apply-btn:hover {
+  opacity: 0.9;
 }
 
 .closed{

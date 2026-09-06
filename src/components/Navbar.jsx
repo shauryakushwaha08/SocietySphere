@@ -1,12 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, Globe } from "lucide-react";
 import "./Navbar.css";
 
 function Navbar({ theme, toggleTheme }) {
   return (
     <nav className="navbar">
       <Link to="/" className="brand" aria-label="SocietySphere home">
-        <span className="brand-mark">S</span>
+        <span className="brand-mark"><Globe /></span>
         <span>Society<span>Sphere</span></span>
       </Link>
       <div className="nav-actions">

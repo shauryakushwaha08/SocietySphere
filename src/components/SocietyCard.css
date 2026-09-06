@@ -60,7 +60,7 @@
 }
 
 .society-row:hover .card-arrow {
-  color: var(--tech);
+  color: var(--theme);
   transform: translate(2px, -2px);
 }
 
@@ -102,8 +102,8 @@
 }
 
 .status-badge.open {
-  background-color: rgba(61, 220, 151, 0.15);
-  color: var(--tech);
+  background-color: rgba(79, 168, 232, 0.15);
+  color: var(--success);
 }
 
 .status-badge.closed {

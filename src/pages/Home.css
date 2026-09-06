@@ -24,7 +24,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  color: var(--tech);
+  color: var(--theme);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -35,7 +35,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--literary);
+  background: var(--danger);
 }
 
 .home-hero h1 {
@@ -47,7 +47,7 @@
 }
 
 .home-hero h1 em {
-  color: var(--literary);
+  color: var(--danger);
   font-style: normal;
 }
 
@@ -62,7 +62,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  background-color: var(--tech);
+  background-color: var(--theme);
   color: var(--bg);
   padding: 0.9rem 1.35rem;
   border-radius: 7px;

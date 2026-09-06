@@ -73,7 +73,7 @@ function SocietyDetails() {
           </div>
           <ul className="roles-list">
             {society.roles.map((role) => (
-              <li key={role} style={{ borderLeftColor: "var(--tech)" }}>
+              <li key={role} style={{ borderLeftColor: "var(--theme)" }}>
                 <CheckCircle2 size={16} />
                 {role}
               </li>
@@ -91,7 +91,7 @@ function SocietyDetails() {
           <Link
             to={`/apply/${id}`}
             className="apply-btn"
-            style={{ backgroundColor: "var(--tech)" }}
+            style={{ backgroundColor: "var(--theme)" }}
           >
             Start application <ArrowRight size={17} />
           </Link>

@@ -19,7 +19,7 @@
 }
 
 .brand > span:last-child span {
-  color: var(--tech);
+  color: var(--theme);
 }
 
 .brand-mark {
@@ -28,7 +28,7 @@
   display: grid;
   place-items: center;
   border-radius: 9px;
-  background: var(--tech);
+  background: var(--theme);
   color: var(--bg);
   font-size: 1.1rem;
 }
@@ -67,7 +67,7 @@
 .nav-links a.active {
   color: var(--text);
   background: var(--surface);
-  box-shadow: inset 0 -2px var(--tech);
+  box-shadow: inset 0 -2px var(--theme);
 }
 
 .theme-toggle {
@@ -82,7 +82,7 @@
 }
 
 .theme-toggle:hover {
-  color: var(--tech);
+  color: var(--theme);
   background-color: var(--surface);
 }
 

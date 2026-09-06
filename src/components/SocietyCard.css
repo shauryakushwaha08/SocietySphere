@@ -1,24 +1,31 @@
 .society-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 4px solid;
-  border-radius: 4px;
-  transition: background-color 0.15s ease;
+  gap: 1.25rem;
+  min-height: 104px;
+  padding: 1.1rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  transition: padding 0.15s ease, background-color 0.15s ease;
 }
 
 .society-row:hover {
-  background-color: var(--surface-hover);
+  padding-left: 0.9rem;
+  padding-right: 0.9rem;
+  background-color: var(--surface);
+}
+
+.society-index {
+  width: 2rem;
+  color: var(--text-soft);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
 }
 
 .logo-chip {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
   background-color: #FFFFFF;
   border: 1px solid var(--border);
   display: flex;
@@ -34,12 +41,31 @@
 }
 
 .society-info h3 {
-  font-size: 1.05rem;
-  margin-bottom: 0.15rem;
+  font-size: 1.15rem;
+  margin-bottom: 0.2rem;
+}
+
+.society-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.card-arrow {
+  flex-shrink: 0;
+  color: var(--text-soft);
+  margin-left: 0.15rem;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.society-row:hover .card-arrow {
+  color: var(--tech);
+  transform: translate(2px, -2px);
 }
 
 .society-info .tagline {
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   color: var(--text-soft);
   margin-bottom: 0.3rem;
 }
@@ -49,12 +75,30 @@
   font-weight: 600;
 }
 
+.society-side-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.45rem;
+  margin-left: auto;
+}
+
 .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-size: 0.7rem;
   font-weight: 600;
-  padding: 0.15rem 0.55rem;
-  border-radius: 4px;
-  margin-left: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  margin-left: 0;
+}
+
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 .status-badge.open {
@@ -65,4 +109,43 @@
 .status-badge.closed {
   background-color: rgba(154, 152, 147, 0.15);
   color: var(--text-soft);
+}
+
+@media (max-width: 420px) {
+  .society-row {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
+    grid-template-areas:
+      "logo info"
+      "logo meta";
+    align-items: center;
+    min-height: 96px;
+    gap: 0.25rem 0.75rem;
+    padding: 0.9rem 0.25rem;
+  }
+
+  .society-row:hover { padding-left: 0.5rem; padding-right: 0.5rem; }
+
+  .society-index { display: none; }
+
+  .logo-chip {
+    grid-area: logo;
+    width: 46px;
+    height: 46px;
+  }
+
+  .society-info {
+    grid-area: info;
+    min-width: 0;
+  }
+
+  .society-side-meta {
+    grid-area: meta;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.65rem;
+    margin-left: 0;
+  }
 }

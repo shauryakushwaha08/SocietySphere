@@ -6,40 +6,94 @@
 .society-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 0;
+  border-top: 1px solid var(--border);
 }
 
 .societies-container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem 1.25rem;
+  padding: 3.5rem 1.25rem;
 }
 
-@media (min-width: 640px) {
-  .society-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.listing-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
 }
 
-@media (min-width: 1024px) {
-  .society-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.listing-heading h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 0.95;
+}
+
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--tech);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.65rem;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: min(100%, 280px);
+  padding: 0 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-soft);
+}
+
+.search-box:focus-within {
+  border-color: var(--tech);
+  box-shadow: 0 0 0 3px rgba(61, 220, 151, 0.1);
+}
+
+.search-box input {
+  border: 0;
+  padding: 0.7rem 0;
+  outline: 0;
+  background: transparent;
+}
+
+.directory-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  margin-bottom: 0.5rem;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.toolbar-label {
+  color: var(--text-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .category-tabs {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
 .category-tab {
-  padding: 0.5rem 1.1rem;
-  min-height: 40px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background-color: var(--surface);
+  padding: 0.35rem 0.65rem;
+  min-height: 32px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-color: transparent;
   color: var(--text-soft);
   font-weight: 500;
   font-size: 0.9rem;
@@ -51,7 +105,28 @@
 }
 
 .category-tab.active {
-  background-color: var(--text);
-  color: var(--bg);
-  border-color: var(--text);
+  background-color: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+@media (max-width: 640px) {
+  .societies-container {
+    padding-top: 2.25rem;
+  }
+
+  .listing-heading {
+    display: block;
+  }
+
+  .directory-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .search-box {
+    width: 100%;
+    margin-top: 1.25rem;
+  }
 }

@@ -1,15 +1,22 @@
+.applications-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+}
+
 .applications-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .application-card {
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
+  border-left: 4px solid;
+  border-radius: 4px;
+  padding: 1.25rem 1.5rem;
 }
 
 .application-header {
@@ -18,26 +25,37 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.application-header h3 {
+  font-size: 1.1rem;
 }
 
 .society-tag {
-  background-color: var(--tech);
   color: white;
   font-size: 0.75rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
+  border-radius: 4px;
+}
+
+.application-card p {
+  margin-bottom: 0.4rem;
+  color: var(--text-soft);
+}
+
+.application-card strong {
+  color: var(--text);
 }
 
 .why-text {
-  margin-top: 0.5rem;
-  color: #555;
-  font-size: 0.9rem;
+  margin-top: 0.6rem;
   font-style: italic;
 }
 
 .empty-state {
   margin-top: 1.5rem;
-  color: var(--surface);
+  color: var(--text-soft);
   text-align: center;
 }

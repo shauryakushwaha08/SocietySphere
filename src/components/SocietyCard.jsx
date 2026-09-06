@@ -20,6 +20,11 @@ function SocietyCard({ society }) {
         <span className="category-label" style={{ color }}>
           {society.category}
         </span>
+        <span
+          className={`status-badge ${society.recruitmentOpen ? "open" : "closed"}`}
+        >
+          {society.recruitmentOpen ? "Open" : "Closed"}
+        </span>
       </div>
     </Link>
   );

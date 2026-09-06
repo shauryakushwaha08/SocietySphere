@@ -48,3 +48,21 @@
   font-size: 0.75rem;
   font-weight: 600;
 }
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.55rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+}
+
+.status-badge.open {
+  background-color: rgba(61, 220, 151, 0.15);
+  color: var(--tech);
+}
+
+.status-badge.closed {
+  background-color: rgba(154, 152, 147, 0.15);
+  color: var(--text-soft);
+}

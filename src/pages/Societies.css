@@ -9,6 +9,12 @@
   gap: 1rem;
 }
 
+.societies-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+}
+
 @media (min-width: 640px) {
   .society-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -19,4 +25,33 @@
   .society-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.category-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.category-tab {
+  padding: 0.5rem 1.1rem;
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text-soft);
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.category-tab:hover {
+  background-color: var(--surface-hover);
+}
+
+.category-tab.active {
+  background-color: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
 }

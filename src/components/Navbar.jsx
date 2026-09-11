@@ -108,7 +108,7 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
             title="Press Ctrl+K or / to search"
           >
             <Search size={16} />
-            <span className="search-trigger-text">Search...</span>
+            <span className="search-trigger-text">Search</span>
             <kbd className="search-shortcut">Ctrl+K</kbd>
           </button>
 
@@ -198,7 +198,7 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
                   }}
                 >
                   <Search size={16} />
-                  <span>Search societies & events...</span>
+                  <span>Search</span>
                 </button>
               </div>
 

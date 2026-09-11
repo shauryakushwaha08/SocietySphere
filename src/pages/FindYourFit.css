@@ -72,7 +72,7 @@
 
 .options-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
   gap: 1rem;
 }
 
@@ -379,6 +379,10 @@
     padding: 1.5rem 1.25rem;
   }
 
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+
   .match-main-content {
     flex-direction: column;
   }
@@ -391,5 +395,77 @@
     margin-left: 0;
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .find-fit-container {
+    padding: 2rem 1rem 3.5rem;
+  }
+
+  .quiz-option-card {
+    padding: 1rem 0.85rem;
+    min-height: auto;
+  }
+
+  .match-card {
+    padding: 1.15rem 1rem;
+  }
+
+  .match-card-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .match-details-btn,
+  .match-card-actions .bookmark-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .find-fit-container {
+    padding: 1.5rem 0.75rem 3rem;
+  }
+
+  .find-fit-header h1 {
+    font-size: clamp(1.8rem, 8vw, 2.2rem);
+  }
+
+  .quiz-card {
+    padding: 1.15rem 0.85rem;
+  }
+
+  .question-block h2 {
+    font-size: 1.3rem;
+  }
+
+  .results-intro-banner {
+    padding: 1.5rem 0.85rem;
+  }
+
+  .results-intro-banner h2 {
+    font-size: 1.45rem;
+  }
+
+  .match-card {
+    padding: 1rem 0.75rem;
+  }
+
+  .match-logo-wrap {
+    width: 48px;
+    height: 48px;
+  }
+
+  .match-title-link h3 {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .find-fit-header h1 {
+    font-size: 1.5rem;
   }
 }

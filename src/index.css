@@ -67,10 +67,16 @@
   --sports-subtle: rgba(217, 119, 6, 0.1);
 }
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  max-width: 100%;
 }
 
 body {
@@ -79,16 +85,29 @@ body {
   color: var(--text);
   line-height: 1.5;
   transition: background-color 0.2s ease, color 0.2s ease;
-  overflow-x: hidden;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: 0;
   color: var(--text);
+  overflow-wrap: break-word;
+}
+
+p,
+span,
+a,
+strong,
+label {
+  overflow-wrap: break-word;
 }
 
 a {
@@ -146,6 +165,12 @@ textarea {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem 1.25rem;
+}
+
+@media (max-width: 360px) {
+  .page-container {
+    padding: 1.25rem 0.75rem;
+  }
 }
 
 /* Custom Scrollbars */

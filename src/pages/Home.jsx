@@ -6,6 +6,7 @@ import {
   Calendar,
   Users,
   Search,
+  X,
   Clock,
   Layers,
   Award,
@@ -50,11 +51,11 @@ function Home() {
           Browse verified college societies, discover upcoming orientations and deadlines, and put your name forward in minutes.
         </p>
 
-        <form className="hero-search-form" onSubmit={handleHeroSearch}>
-          <Search size={18} className="hero-search-icon" />
+        <form className="hero-search-form" onSubmit={handleHeroSearch} role="search">
+          <Search size={18} className="hero-search-icon" aria-hidden="true" />
           <input
             type="text"
-            placeholder="Search by society name, skill, domain, or role..."
+            placeholder="Search societies, skills, or roles"
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
             aria-label="Quick search societies"

@@ -203,7 +203,7 @@
 /* Hero Meta Bar */
 .hero-meta-bar {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
   gap: 1rem;
   margin-top: 2rem;
   padding-top: 1.5rem;
@@ -335,7 +335,7 @@
 /* Leads Grid */
 .leads-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
   gap: 1rem;
 }
 
@@ -413,7 +413,7 @@
 
 .roles-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 1rem;
 }
 
@@ -490,7 +490,7 @@
 /* Flagship Cards */
 .flagships-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 1.25rem;
 }
 
@@ -628,6 +628,91 @@
   }
 
   .sticky-apply-btn {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .leads-grid,
+  .roles-cards-grid,
+  .flagships-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .details-nav-bar {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .details-top-actions {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .society-hero-card {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .hero-top-row {
+    gap: 1rem;
+  }
+
+  .hero-main-title-block h1 {
+    font-size: clamp(1.75rem, 6vw, 2.2rem);
+  }
+
+  .details-top-actions .bookmark-btn,
+  .details-top-actions .share-btn {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .society-details-wrapper {
+    padding: 1.5rem 0.75rem 3.5rem;
+  }
+
+  .society-hero-card {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .hero-meta-bar {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .tab-btn {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.84rem;
+  }
+
+  .role-detail-card,
+  .lead-card,
+  .flagship-card {
+    padding: 1rem 0.85rem;
+  }
+
+  .details-bottom-bar {
+    padding: 1rem 0.85rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .hero-main-title-block h1 {
+    font-size: 1.5rem;
+  }
+
+  .details-top-actions {
+    width: 100%;
+  }
+
+  .details-top-actions .bookmark-btn,
+  .details-top-actions .share-btn {
+    flex: 1;
     justify-content: center;
   }
 }

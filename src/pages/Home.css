@@ -60,50 +60,102 @@
   display: flex;
   align-items: center;
   max-width: 580px;
+  width: 100%;
   margin: 0 auto 1.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0.35rem 0.5rem 0.35rem 1rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  transition: all 0.2s ease;
+  border-radius: 12px;
+  padding: 0.35rem 0.4rem 0.35rem 0.95rem;
+  box-shadow: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
 }
 
 .hero-search-form:focus-within {
   border-color: var(--theme);
-  box-shadow: 0 0 0 3px rgba(61, 220, 151, 0.15);
+  box-shadow: 0 0 0 3px var(--theme-subtle);
 }
 
 .hero-search-icon {
   color: var(--text-soft);
-  margin-right: 0.5rem;
+  margin-right: 0.55rem;
   flex-shrink: 0;
+  transition: color 0.15s ease;
 }
 
-.hero-search-form input {
-  border: 0;
-  background: transparent;
-  outline: 0;
+.hero-search-form:focus-within .hero-search-icon {
+  color: var(--theme);
+}
+
+.hero-search-form input,
+.hero-search-form input:focus,
+.hero-search-form input:focus-visible,
+.hero-search-form input:hover,
+.hero-search-form input:active {
+  border: 0 !important;
+  background: transparent !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
   color: var(--text);
-  font-size: 0.98rem;
-  padding: 0.6rem 0;
+  font-size: 0.95rem;
+  padding: 0.65rem 0.25rem;
+  flex: 1 1 auto;
+  min-width: 0;
   width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.hero-search-form input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+.hero-search-clear-btn {
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 0.25rem;
+  flex-shrink: 0;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.hero-search-clear-btn:hover {
+  color: var(--text);
+  background: var(--surface-hover);
 }
 
 .hero-search-submit {
   background: var(--theme);
   color: var(--theme-fg);
   padding: 0.65rem 1.25rem;
-  border-radius: 7px;
+  border-radius: 8px;
   font-size: 0.88rem;
   font-weight: 700;
   flex-shrink: 0;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
 }
 
 .hero-search-submit:hover {
   transform: translateY(-1px);
   opacity: 0.95;
+  box-shadow: 0 4px 12px rgba(61, 220, 151, 0.25);
+}
+
+.hero-search-submit:active {
+  transform: translateY(0);
 }
 
 /* Quick Category Chips */
@@ -273,7 +325,7 @@
 /* Featured Societies Grid */
 .featured-societies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 1.5rem;
 }
 
@@ -494,7 +546,7 @@
 /* Home Events Grid */
 .home-events-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 1.25rem;
 }
 
@@ -605,7 +657,7 @@
 /* Pillars Grid */
 .pillars-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 1.5rem;
 }
 
@@ -657,17 +709,30 @@
   }
 
   .home-hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
   }
 
   .hero-search-form {
-    flex-direction: column;
-    padding: 0.65rem;
-    gap: 0.65rem;
+    flex-direction: row;
+    padding: 0.3rem 0.35rem 0.3rem 0.75rem;
+    gap: 0.25rem;
+    border-radius: 10px;
+  }
+
+  .hero-search-icon {
+    margin-right: 0.35rem;
+  }
+
+  .hero-search-form input {
+    font-size: 0.88rem;
+    padding: 0.55rem 0.15rem;
   }
 
   .hero-search-submit {
-    width: 100%;
+    width: auto;
+    padding: 0.55rem 0.95rem;
+    font-size: 0.82rem;
+    border-radius: 7px;
   }
 
   .stats-row {
@@ -684,14 +749,136 @@
     border-bottom: 0;
   }
 
+  .featured-societies-grid,
+  .home-events-grid,
+  .pillars-grid {
+    grid-template-columns: 1fr;
+  }
+
   .matcher-callout-banner {
     padding: 2rem 1.25rem;
+  }
+
+  .callout-content {
+    min-width: 0;
   }
 
   .callout-primary-btn,
   .callout-secondary-btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .home-page-root {
+    gap: 2.5rem;
+  }
+
+  .home-hero {
+    padding: 2rem 0.75rem 1.5rem;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(1.75rem, 8vw, 2.1rem);
+    line-height: 1.1;
+  }
+
+  .hero-sub {
+    font-size: 0.92rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-search-form {
+    padding: 0.25rem 0.3rem 0.25rem 0.6rem;
+    border-radius: 9px;
+    gap: 0.2rem;
+  }
+
+  .hero-search-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 0.25rem;
+  }
+
+  .hero-search-form input {
+    font-size: 0.82rem;
+    padding: 0.45rem 0.1rem;
+  }
+
+  .hero-search-submit {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.78rem;
+    border-radius: 6px;
+  }
+
+  .hero-quick-chips {
+    margin-bottom: 2rem;
+    gap: 0.35rem;
+  }
+
+  .hero-chip {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.72rem;
+  }
+
+  .stats-row {
+    padding: 1rem 0.65rem;
+  }
+
+  .stat {
+    padding: 0 0.25rem 0.65rem;
+    gap: 0.6rem;
+  }
+
+  .stat-number {
+    font-size: 1.45rem;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+  }
+
+  .home-event-card {
+    padding: 1rem 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .event-date-box {
+    width: 50px;
+    height: 52px;
+  }
+
+  .date-day {
+    font-size: 1.2rem;
+  }
+
+  .featured-soc-card,
+  .pillar-card {
+    padding: 1.1rem 0.85rem;
+  }
+
+  .matcher-callout-banner {
+    padding: 1.5rem 0.85rem;
+  }
+
+  .matcher-callout-banner h2 {
+    font-size: 1.45rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .home-hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero-kicker {
+    font-size: 0.68rem;
+  }
+
+  .home-event-card {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
@@ -712,7 +899,13 @@
 
 [data-theme="light"] .hero-search-form {
   background-color: #FFFFFF;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+[data-theme="light"] .hero-search-form:focus-within {
+  border-color: var(--theme);
+  box-shadow: 0 0 0 3px var(--theme-subtle);
 }
 
 [data-theme="light"] .matcher-callout-banner {

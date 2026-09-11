@@ -201,7 +201,7 @@
 /* Details Grid */
 .application-details-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
   gap: 1rem;
   background: var(--bg);
   border: 1px solid var(--border);
@@ -342,6 +342,83 @@
   }
 
   .application-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .applications-container {
+    padding: 2rem 1rem 3.5rem;
+  }
+
+  .application-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .application-details-grid {
+    grid-template-columns: 1fr;
+    padding: 0.85rem 0.75rem;
+  }
+
+  .application-society h2 {
+    font-size: 1.2rem;
+  }
+
+  .application-card-footer {
+    gap: 0.65rem;
+  }
+
+  .application-link,
+  .withdraw-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .confirm-withdraw-block {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 360px) {
+  .applications-container {
+    padding: 1.5rem 0.75rem 3rem;
+  }
+
+  .applications-heading h1 {
+    font-size: clamp(1.8rem, 8vw, 2.2rem);
+  }
+
+  .application-card {
+    padding: 1rem 0.75rem;
+  }
+
+  .application-society {
+    gap: 0.55rem;
+  }
+
+  .application-logo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .application-society h2 {
+    font-size: 1.1rem;
+  }
+
+  .detail-item strong {
+    font-size: 0.88rem;
+  }
+
+  .why-text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .application-society {
     flex-direction: column;
     align-items: flex-start;
   }

@@ -2,34 +2,67 @@
   --bg: #0A0A0C;
   --surface: #17171B;
   --surface-hover: #1E1E23;
+  --surface-active: #25252C;
   --border: #2A2A30;
+  --border-subtle: #1F1F24;
+  --border-strong: #3D3D46;
   --text: #F2F1ED;
   --text-soft: #9A9893;
+  --text-muted: #6E6C66;
   --danger: #E8735A;
+  --danger-subtle: rgba(232, 115, 90, 0.15);
   --success: #3DDC97;
+  --success-subtle: rgba(61, 220, 151, 0.15);
   --theme: #3DDC97;
+  --theme-fg: #0A0A0C;
+  --theme-subtle: rgba(61, 220, 151, 0.12);
+  --theme-border: rgba(61, 220, 151, 0.3);
+  --theme-rgb: 61, 220, 151;
+
+  --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --card-shadow-hover: 0 10px 24px rgba(0, 0, 0, 0.35);
 
   --tech: #4FA8E8;
+  --tech-subtle: rgba(79, 168, 232, 0.12);
   --literary: #E8735A;
+  --literary-subtle: rgba(232, 115, 90, 0.12);
   --sports: #E8B339;
+  --sports-subtle: rgba(232, 179, 57, 0.12);
 
   --font-heading: "Zilla Slab", serif;
   --font-body: "IBM Plex Sans", sans-serif;
 }
 
 [data-theme="light"] {
-  --bg: #F6F4EF;
+  --bg: #F8F9FA;
   --surface: #FFFFFF;
-  --surface-hover: #FBFAF7;
-  --border: #DAD5C8;
-  --text: #22252A;
-  --text-soft: #5A5750;
-  --danger: #B23A2E;
-  --success: #2F6F4E;
+  --surface-hover: #F1F3F5;
+  --surface-active: #E9ECEF;
+  --border: #DEE2E6;
+  --border-subtle: #E9ECEF;
+  --border-strong: #CED4DA;
+  --text: #1A1D20;
+  --text-soft: #495057;
+  --text-muted: #6C757D;
+  --danger: #DC2626;
+  --danger-subtle: rgba(220, 38, 38, 0.1);
+  --success: #059669;
+  --success-subtle: rgba(5, 150, 105, 0.1);
+  --theme: #059669;
+  --theme-fg: #FFFFFF;
+  --theme-subtle: rgba(5, 150, 105, 0.1);
+  --theme-border: rgba(5, 150, 105, 0.3);
+  --theme-rgb: 5, 150, 105;
 
-  --tech: #1D6FA5;
-  --literary: #8A3B2E;
-  --sports: #B8860B;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+
+  --tech: #0284C7;
+  --tech-subtle: rgba(2, 132, 199, 0.1);
+  --literary: #E11D48;
+  --literary-subtle: rgba(225, 29, 72, 0.1);
+  --sports: #D97706;
+  --sports-subtle: rgba(217, 119, 6, 0.1);
 }
 
 * {
@@ -44,6 +77,7 @@ body {
   color: var(--text);
   line-height: 1.5;
   transition: background-color 0.2s ease, color 0.2s ease;
+  overflow-x: hidden;
 }
 
 h1,
@@ -52,6 +86,7 @@ h3 {
   font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: 0;
+  color: var(--text);
 }
 
 a {
@@ -68,27 +103,36 @@ button {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible,
+select:focus-visible {
   outline: 2px solid var(--theme);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 ::selection {
   background: var(--theme);
-  color: var(--bg);
+  color: var(--theme-fg);
 }
 
 input,
 textarea,
 select {
   font-family: inherit;
-  font-size: 1rem;
-  padding: 0.6rem;
+  font-size: 0.95rem;
+  padding: 0.65rem 0.85rem;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 6px;
   width: 100%;
   background-color: var(--surface);
   color: var(--text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--theme);
+  box-shadow: 0 0 0 3px var(--theme-subtle);
 }
 
 textarea {

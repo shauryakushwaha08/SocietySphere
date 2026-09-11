@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   Sun,
@@ -27,6 +28,23 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
     setPrevPath(location.pathname);
     setMobileMenuOpen(false);
   }
+
+  // Prevent background scroll when mobile drawer is open and handle Escape key
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+      const handleKeyDown = (e) => {
+        if (e.key === "Escape") setMobileMenuOpen(false);
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = "";
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [mobileMenuOpen]);
 
   // Sync counts dynamically
   useEffect(() => {
@@ -63,17 +81,14 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
 
         {/* Desktop Nav Links */}
         <div className="nav-desktop-links" role="menubar">
-          <NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>
-            Home
-          </NavLink>
           <NavLink to="/societies" className={({ isActive }) => (isActive ? "active" : "")}>
             <Compass size={15} /> Societies
           </NavLink>
           <NavLink to="/events" className={({ isActive }) => (isActive ? "active" : "")}>
-            <Calendar size={15} /> Events & Deadlines
+            <Calendar size={15} /> Events
           </NavLink>
           <NavLink to="/find-your-fit" className={({ isActive }) => (isActive ? "active" : "")}>
-            <Sparkles size={15} /> Find Your Fit
+            <Sparkles size={15} /> Match Quiz
           </NavLink>
           <NavLink to="/applications" className={({ isActive }) => `apps-link ${isActive ? "active" : ""}`}>
             <FileText size={15} /> Applications
@@ -85,11 +100,12 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
         <div className="nav-actions">
           {/* Quick Search Button */}
           <button
+            id="nav-search-btn"
             type="button"
             className="search-trigger-btn"
             onClick={onOpenSearch}
             aria-label="Search societies and events"
-            title="Press ⌘K or / to search"
+            title="Press Ctrl+K or / to search"
           >
             <Search size={16} />
             <span className="search-trigger-text">Search...</span>
@@ -98,6 +114,7 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
 
           {/* Bookmarks quick link */}
           <Link
+            id="nav-bookmarks-btn"
             to="/societies?saved=true"
             className="bookmarks-nav-btn"
             aria-label={`View ${bookmarksCount} saved societies`}
@@ -109,6 +126,7 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
 
           {/* Theme Toggle */}
           <button
+            id="nav-theme-toggle"
             type="button"
             className="theme-toggle"
             onClick={toggleTheme}
@@ -118,105 +136,118 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
             {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
-          {/* Mobile Menu Toggle Button */}
+          {/* Mobile Menu Toggle Button (Always visible on mobile) */}
           <button
+            id="mobile-nav-toggle"
             type="button"
-            className="mobile-toggle-btn"
+            className={`mobile-toggle-btn ${mobileMenuOpen ? "is-open" : ""}`}
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav-drawer"
             aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Drawer Navigation */}
-      {mobileMenuOpen && (
-        <div className="mobile-drawer-overlay" onClick={() => setMobileMenuOpen(false)}>
+      {/* Mobile Drawer Navigation: Rendered via Portal at document.body level so backdrop-filter doesn't clip it */}
+      {mobileMenuOpen &&
+        typeof document !== "undefined" &&
+        createPortal(
           <div
-            className="mobile-drawer-content"
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-label="Mobile Navigation"
+            id="mobile-nav-overlay"
+            className="mobile-drawer-overlay"
+            onClick={() => setMobileMenuOpen(false)}
           >
-            <div className="mobile-drawer-header">
-              <span className="mobile-drawer-title">Navigation</span>
-              <button
-                type="button"
-                className="mobile-drawer-close"
-                onClick={() => setMobileMenuOpen(false)}
-                aria-label="Close menu"
-              >
-                <X size={20} />
-              </button>
-            </div>
-
-            <div className="mobile-search-bar">
-              <button
-                type="button"
-                className="mobile-search-btn"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenSearch();
-                }}
-              >
-                <Search size={16} />
-                <span>Search societies & events...</span>
-                <span className="search-pill">Open</span>
-              </button>
-            </div>
-
-            <div className="mobile-links-list">
-              <NavLink to="/" end className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
-                <Globe size={18} />
-                <span>Home</span>
-              </NavLink>
-
-              <NavLink to="/societies" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
-                <Compass size={18} />
-                <span>Browse Societies</span>
-              </NavLink>
-
-              <NavLink to="/events" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
-                <Calendar size={18} />
-                <span>Events & Deadlines</span>
-              </NavLink>
-
-              <NavLink to="/find-your-fit" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
-                <Sparkles size={18} />
-                <span>Find Your Fit Quiz</span>
-              </NavLink>
-
-              <NavLink to="/applications" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
-                <FileText size={18} />
-                <span>My Applications</span>
-                {appsCount > 0 && <span className="mobile-nav-badge">{appsCount}</span>}
-              </NavLink>
-
-              <NavLink to="/societies?saved=true" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
-                <Bookmark size={18} />
-                <span>Saved Societies</span>
-                {bookmarksCount > 0 && <span className="mobile-nav-badge">{bookmarksCount}</span>}
-              </NavLink>
-            </div>
-
-            <div className="mobile-drawer-footer">
-              <div className="theme-toggle-row">
-                <span>Theme: {theme === "dark" ? "Dark Mode" : "Light Mode"}</span>
+            <div
+              id="mobile-nav-drawer"
+              className="mobile-drawer-content"
+              onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile Navigation Menu"
+            >
+              <div className="mobile-drawer-header">
+                <Link to="/" className="mobile-drawer-brand" aria-label="SocietySphere Home">
+                  <span className="brand-mark small">
+                    <Globe size={15} />
+                  </span>
+                  <span className="mobile-drawer-title">
+                    Society<span>Sphere</span>
+                  </span>
+                </Link>
                 <button
+                  id="mobile-drawer-close"
                   type="button"
-                  className="mobile-theme-btn"
-                  onClick={toggleTheme}
+                  className="mobile-drawer-close"
+                  onClick={() => setMobileMenuOpen(false)}
+                  aria-label="Close navigation menu"
                 >
-                  {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
-                  <span>{theme === "dark" ? "Switch to Light" : "Switch to Dark"}</span>
+                  <X size={20} />
                 </button>
               </div>
+
+              <div className="mobile-search-bar">
+                <button
+                  type="button"
+                  className="mobile-search-btn"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenSearch();
+                  }}
+                >
+                  <Search size={16} />
+                  <span>Search societies & events...</span>
+                </button>
+              </div>
+
+              <div className="mobile-links-list">
+                <NavLink to="/societies" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
+                  <Compass size={18} />
+                  <span>Browse Societies</span>
+                </NavLink>
+
+                <NavLink to="/events" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
+                  <Calendar size={18} />
+                  <span>Events & Deadlines</span>
+                </NavLink>
+
+                <NavLink to="/find-your-fit" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
+                  <Sparkles size={18} />
+                  <span>Find Your Fit Quiz</span>
+                </NavLink>
+
+                <NavLink to="/applications" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
+                  <FileText size={18} />
+                  <span>My Applications</span>
+                  {appsCount > 0 && <span className="mobile-nav-badge">{appsCount}</span>}
+                </NavLink>
+
+                <NavLink to="/societies?saved=true" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
+                  <Bookmark size={18} />
+                  <span>Saved Societies</span>
+                  {bookmarksCount > 0 && <span className="mobile-nav-badge">{bookmarksCount}</span>}
+                </NavLink>
+              </div>
+
+              <div className="mobile-drawer-footer">
+                <div className="theme-toggle-row">
+                  <span>Current Theme: <strong>{theme === "dark" ? "Dark Mode" : "Light Mode"}</strong></span>
+                  <button
+                    type="button"
+                    className="mobile-theme-btn"
+                    onClick={toggleTheme}
+                  >
+                    {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
+                    <span>{theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}</span>
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </header>
   );
 }

@@ -56,6 +56,10 @@
   box-shadow: 0 0 0 3px rgba(61, 220, 151, 0.12);
 }
 
+.search-box input:focus {
+  box-shadow: none !important;
+}
+
 .search-box input {
   border: 0;
   padding: 0.75rem 0;
@@ -127,7 +131,7 @@
 .category-tab.active {
   background-color: var(--theme);
   border-color: var(--theme);
-  color: var(--bg);
+  color: var(--theme-fg);
   font-weight: 700;
 }
 
@@ -204,7 +208,7 @@
 }
 
 .filter-pill.active {
-  background: rgba(61, 220, 151, 0.12);
+  background: var(--theme-subtle);
   color: var(--theme);
   border-color: var(--theme);
 }
@@ -315,10 +319,15 @@
 
 .clear-filters-btn {
   background: var(--theme);
-  color: var(--bg);
+  color: var(--theme-fg);
   font-weight: 700;
   padding: 0.65rem 1.25rem;
   border-radius: 6px;
+  transition: opacity 0.15s ease;
+}
+
+.clear-filters-btn:hover {
+  opacity: 0.95;
 }
 
 @media (max-width: 640px) {
@@ -335,4 +344,18 @@
     width: 100%;
     justify-content: space-between;
   }
+}
+
+[data-theme="light"] .directory-toolbar-card {
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .search-box {
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] .category-tab:hover {
+  background-color: #09a775;
 }

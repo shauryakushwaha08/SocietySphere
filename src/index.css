@@ -13,6 +13,7 @@
   --danger-subtle: rgba(232, 115, 90, 0.15);
   --success: #3DDC97;
   --success-subtle: rgba(61, 220, 151, 0.15);
+  --important: #E8B339;
   --theme: #3DDC97;
   --theme-fg: #0A0A0C;
   --theme-subtle: rgba(61, 220, 151, 0.12);
@@ -48,6 +49,7 @@
   --danger-subtle: rgba(220, 38, 38, 0.1);
   --success: #059669;
   --success-subtle: rgba(5, 150, 105, 0.1);
+  --important: #D97706;
   --theme: #059669;
   --theme-fg: #FFFFFF;
   --theme-subtle: rgba(5, 150, 105, 0.1);

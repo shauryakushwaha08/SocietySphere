@@ -153,8 +153,8 @@
 }
 
 .hero-chip.sports:hover {
-  border-color: var(--sports);
-  color: var(--sports);
+  border-color: var(--important);
+  color: var(--important);
 }
 
 .hero-chip.open {
@@ -426,7 +426,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  color: var(--sports);
+  color: var(--important);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;

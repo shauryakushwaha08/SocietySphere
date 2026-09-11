@@ -28,7 +28,7 @@ export default function BookmarkButton({ societyId, showLabel = false, className
       onClick={handleClick}
       aria-label={bookmarked ? "Remove from saved societies" : "Save society to bookmarks"}
       title={bookmarked ? "Remove from bookmarks" : "Bookmark this society"}
-      className={`bookmark-btn ${bookmarked ? "bookmarked" : ""} ${className}`}
+      className={`bookmark-btn ${showLabel ? "has-label" : ""} ${bookmarked ? "bookmarked" : ""} ${className}`.trim()}
     >
       <Bookmark
         size={16}

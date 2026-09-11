@@ -21,18 +21,31 @@ function Societies() {
   // Initialize state from URL query parameters if present
   const categoryParam = searchParams.get("category");
   const recruitingParam = searchParams.get("recruiting");
-  const savedParam = searchParams.get("saved");
   const queryParam = searchParams.get("q");
 
   const [activeCategory, setActiveCategory] = useState(categoryParam || "All");
   const [recruitmentFilter, setRecruitmentFilter] = useState(
     recruitingParam === "true" ? "open" : "all"
   );
-  const [onlySaved, setOnlySaved] = useState(savedParam === "true");
+  const onlySaved = searchParams.get("saved") === "true";
   const [query, setQuery] = useState(queryParam || "");
   const [sortBy, setSortBy] = useState("default");
   const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'list'
   const [bookmarkedIds, setBookmarkedIds] = useState(getBookmarks);
+
+  const setOnlySaved = (valueOrFn) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      const current = next.get("saved") === "true";
+      const nextVal = typeof valueOrFn === "function" ? valueOrFn(current) : valueOrFn;
+      if (nextVal) {
+        next.set("saved", "true");
+      } else {
+        next.delete("saved");
+      }
+      return next;
+    });
+  };
 
   // Sync bookmark updates
   useEffect(() => {
@@ -45,13 +58,20 @@ function Societies() {
 
   // Sync URL search params
   useEffect(() => {
-    const params = {};
-    if (activeCategory !== "All") params.category = activeCategory;
-    if (recruitmentFilter === "open") params.recruiting = "true";
-    if (onlySaved) params.saved = "true";
-    if (query.trim()) params.q = query.trim();
-    setSearchParams(params, { replace: true });
-  }, [activeCategory, recruitmentFilter, onlySaved, query, setSearchParams]);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (activeCategory !== "All") next.set("category", activeCategory);
+      else next.delete("category");
+
+      if (recruitmentFilter === "open") next.set("recruiting", "true");
+      else next.delete("recruiting");
+
+      if (query.trim()) next.set("q", query.trim());
+      else next.delete("q");
+
+      return next;
+    }, { replace: true });
+  }, [activeCategory, recruitmentFilter, query, setSearchParams]);
 
   const categories = ["All", ...new Set(societies.map((s) => s.category))];
 

@@ -31,6 +31,41 @@
   gap: 0.65rem;
 }
 
+.details-top-actions .bookmark-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: auto;
+  min-height: 34px;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.details-top-actions .bookmark-btn:hover {
+  color: var(--important);
+  border-color: var(--important);
+  background: var(--surface-hover);
+}
+
+.details-top-actions .bookmark-btn.bookmarked {
+  color: var(--important);
+  border-color: var(--important);
+  background: rgba(232, 179, 57, 0.12);
+}
+
+.details-top-actions .bookmark-btn .bookmark-icon {
+  flex-shrink: 0;
+}
+
 .share-btn {
   display: inline-flex;
   align-items: center;
@@ -162,7 +197,7 @@
   align-items: center;
   gap: 0.35rem;
   font-size: 0.76rem;
-  color: var(--sports);
+  color: var(--important);
 }
 
 /* Hero Meta Bar */
@@ -469,7 +504,7 @@
 .flagship-card h3 {
   font-size: 1.15rem;
   margin-bottom: 0.35rem;
-  color: var(--sports);
+  color: var(--important);
 }
 
 .flagship-card p {

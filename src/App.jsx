@@ -9,6 +9,7 @@ import Applications from "./pages/Applications";
 import FindYourFit from "./pages/FindYourFit";
 import Events from "./pages/Events";
 import QuickSearchModal from "./components/QuickSearchModal";
+import ScrollToTop from "./utils/ScrollToTop";
 
 function App() {
   const [theme, setTheme] = useState(
@@ -38,6 +39,7 @@ function App() {
 
   return (
     <>
+      <ScrollToTop />
       <Navbar
         theme={theme}
         toggleTheme={toggleTheme}

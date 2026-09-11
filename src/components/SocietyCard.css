@@ -1,37 +1,15 @@
-.society-row {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  min-height: 104px;
-  padding: 1.1rem 0.5rem;
-  border-bottom: 1px solid var(--border);
-  transition: padding 0.15s ease, background-color 0.15s ease;
-}
-
-.society-row:hover {
-  padding-left: 0.9rem;
-  padding-right: 0.9rem;
-  background-color: var(--surface);
-}
-
-.society-index {
-  width: 2rem;
-  color: var(--text-soft);
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
-}
-
 .logo-chip {
   flex-shrink: 0;
-  width: 56px;
-  height: 56px;
-  border-radius: 6px;
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
   background-color: #FFFFFF;
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding: 4px;
 }
 
 .logo-chip img {
@@ -40,112 +18,376 @@
   object-fit: contain;
 }
 
-.society-info h3 {
-  font-size: 1.15rem;
-  margin-bottom: 0.2rem;
+.logo-chip.large {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  padding: 6px;
+}
+
+.category-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.22rem 0.6rem;
+  border-radius: 4px;
+}
+
+.status-badge.open {
+  background-color: rgba(61, 220, 151, 0.12);
+  color: var(--theme);
+  border: 1px solid rgba(61, 220, 151, 0.25);
+}
+
+.status-badge.closed {
+  background-color: rgba(154, 152, 147, 0.12);
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.status-badge.open .status-dot {
+  box-shadow: 0 0 6px currentColor;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.2); }
+}
+
+.society-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.65rem;
+}
+
+.society-tag-pill {
+  font-size: 0.72rem;
+  color: var(--text-soft);
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+/* Bookmark button */
+.bookmark-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  background-color: var(--surface-hover);
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.bookmark-btn:hover {
+  border-color: var(--sports);
+  color: var(--sports);
+  background-color: var(--surface);
+}
+
+.bookmark-btn.bookmarked {
+  color: var(--sports);
+  border-color: var(--sports);
+  background: rgba(232, 179, 57, 0.1);
+}
+
+/* Grid Card layout */
+.society-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--theme);
+  border-radius: 10px;
+  padding: 1.25rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  position: relative;
+}
+
+.society-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--text-soft);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.society-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.card-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.society-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.status-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
+}
+
+.members-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  color: var(--text-soft);
+}
+
+.card-title-link {
+  text-decoration: none;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+.card-title-link h3 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  transition: color 0.15s ease;
+}
+
+.card-title-link:hover h3 {
+  color: var(--theme);
+}
+
+.card-tagline {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-deadline-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.73rem;
+  color: var(--sports);
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed var(--border);
+}
+
+.society-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
+}
+
+.card-details-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.card-details-link:hover {
+  color: var(--text);
+}
+
+.card-apply-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--theme);
+  color: var(--bg);
+  padding: 0.35rem 0.85rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.card-apply-pill:hover {
+  transform: translateY(-1px);
+}
+
+.closed-label {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+/* List Row layout */
+.society-list-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-height: 98px;
+  padding: 1.1rem 1rem;
+  border-bottom: 1px solid var(--border);
+  border-left: 3px solid transparent;
+  background-color: var(--surface);
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.society-list-row:hover {
+  border-color: var(--theme);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transform: translateX(4px);
+}
+
+.society-index {
+  width: 1.8rem;
+  color: var(--text-soft);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.society-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .society-title-row {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+  flex-wrap: wrap;
 }
 
-.card-arrow {
-  flex-shrink: 0;
-  color: var(--text-soft);
-  margin-left: 0.15rem;
-  transition: color 0.15s ease, transform 0.15s ease;
+.society-name-link {
+  text-decoration: none;
+  color: var(--text);
 }
 
-.society-row:hover .card-arrow {
+.society-name-link h3 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.society-name-link:hover h3 {
   color: var(--theme);
-  transform: translate(2px, -2px);
 }
 
 .society-info .tagline {
   font-size: 0.86rem;
   color: var(--text-soft);
-  margin-bottom: 0.3rem;
-}
-
-.category-label {
-  font-size: 0.75rem;
-  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .society-side-meta {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.45rem;
-  margin-left: auto;
+  gap: 0.55rem;
+  flex-shrink: 0;
 }
 
-.status-badge {
+.society-action-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.card-apply-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 0.7rem;
+  background-color: var(--theme);
+  color: var(--bg);
+  padding: 0.3rem 0.65rem;
+  border-radius: 5px;
+  font-size: 0.78rem;
   font-weight: 600;
-  padding: 0.2rem 0.5rem;
-  border-radius: 3px;
-  margin-left: 0;
+  text-decoration: none;
 }
 
-.status-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: currentColor;
+.card-view-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background-color: var(--surface-hover);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
 }
 
-.status-badge.open {
-  background-color: rgba(79, 168, 232, 0.15);
-  color: var(--success);
+.card-view-btn:hover {
+  color: var(--theme);
+  border-color: var(--theme);
 }
 
-.status-badge.closed {
-  background-color: rgba(232, 115, 90, 0.15);
-  color: var(--danger);
-}
-
-@media (max-width: 420px) {
-  .society-row {
-    display: grid;
-    grid-template-columns: 46px minmax(0, 1fr);
-    grid-template-areas:
-      "logo info"
-      "logo meta";
-    align-items: center;
-    min-height: 96px;
-    gap: 0.25rem 0.75rem;
-    padding: 0.9rem 0.25rem;
+/* Responsive */
+@media (max-width: 768px) {
+  .society-list-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
   }
 
-  .society-row:hover { padding-left: 0.5rem; padding-right: 0.5rem; }
-
-  .society-index { display: none; }
-
-  .logo-chip {
-    grid-area: logo;
-    width: 46px;
-    height: 46px;
+  .society-index {
+    display: none;
   }
 
-  .society-info {
-    grid-area: info;
-    min-width: 0;
+  .society-info .tagline {
+    white-space: normal;
   }
 
   .society-side-meta {
-    grid-area: meta;
-    display: flex;
+    width: 100%;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-start;
-    gap: 0.65rem;
-    margin-left: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 0.65rem;
+    margin-top: 0.25rem;
   }
 }

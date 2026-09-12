@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Users, Clock, Send } from "lucide-react";
+import { ArrowUpRight, Users, Send } from "lucide-react";
 import { categoryColors } from "../utils/categoryStyles";
 import BookmarkButton from "./BookmarkButton";
+import DeadlineCountdown from "./DeadlineCountdown";
 import "./SocietyCard.css";
 
 function SocietyCard({ society, index, viewMode = "grid" }) {
@@ -34,9 +35,14 @@ function SocietyCard({ society, index, viewMode = "grid" }) {
         </div>
 
         <div className="society-side-meta">
-          <span className={`status-badge ${society.recruitmentOpen ? "open" : "closed"}`}>
-            <span className="status-dot" /> {society.recruitmentOpen ? "Recruiting" : "Closed"}
-          </span>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.25rem" }}>
+            <span className={`status-badge ${society.recruitmentOpen ? "open" : "closed"}`}>
+              <span className="status-dot" /> {society.recruitmentOpen ? "Recruiting" : "Closed"}
+            </span>
+            {society.recruitmentOpen && society.recruitmentDeadline && (
+              <DeadlineCountdown deadline={society.recruitmentDeadline} compact={true} />
+            )}
+          </div>
 
           <div className="society-action-btns">
             <BookmarkButton societyId={society.id} />
@@ -104,8 +110,7 @@ function SocietyCard({ society, index, viewMode = "grid" }) {
 
         {society.recruitmentOpen && society.recruitmentDeadline && (
           <div className="card-deadline-hint">
-            <Clock size={12} />
-            <span>Apply by: {society.recruitmentDeadline}</span>
+            <DeadlineCountdown deadline={society.recruitmentDeadline} compact={true} />
           </div>
         )}
       </div>

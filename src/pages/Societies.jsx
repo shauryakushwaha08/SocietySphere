@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import societies from "../data/societies";
 import SocietyCard from "../components/SocietyCard";
+import SocietyCardSkeleton from "../components/SocietyCardSkeleton";
 import { getBookmarks } from "../utils/storage";
 import "./Societies.css";
 
@@ -32,6 +33,14 @@ function Societies() {
   const [sortBy, setSortBy] = useState("default");
   const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'list'
   const [bookmarkedIds, setBookmarkedIds] = useState(getBookmarks);
+  const [isFiltering, setIsFiltering] = useState(false);
+
+  const handleCategorySelect = (cat) => {
+    if (cat === activeCategory) return;
+    setIsFiltering(true);
+    setActiveCategory(cat);
+    setTimeout(() => setIsFiltering(false), 200);
+  };
 
   const setOnlySaved = (valueOrFn) => {
     setSearchParams((prev) => {
@@ -167,7 +176,7 @@ function Societies() {
                 <button
                   key={cat}
                   className={`category-tab ${activeCategory === cat ? "active" : ""}`}
-                  onClick={() => setActiveCategory(cat)}
+                  onClick={() => handleCategorySelect(cat)}
                 >
                   <span>{cat}</span>
                   <span className="tab-count">{count}</span>
@@ -283,7 +292,16 @@ function Societies() {
       )}
 
       {/* Grid or List of Societies */}
-      {filteredSocieties.length === 0 ? (
+      {isFiltering ? (
+        <div
+          className={viewMode === "grid" ? "society-grid-view" : "society-list-view"}
+          aria-label="Loading directory"
+        >
+          {[1, 2, 3, 4, 5, 6].map((n) => (
+            <SocietyCardSkeleton key={n} viewMode={viewMode} />
+          ))}
+        </div>
+      ) : filteredSocieties.length === 0 ? (
         <div className="empty-state-box">
           <Bookmark size={34} className="empty-icon" />
           <h3>No societies match your criteria</h3>

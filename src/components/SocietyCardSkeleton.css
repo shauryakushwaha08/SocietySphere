@@ -1,0 +1,11 @@
+.skeleton-card {
+  pointer-events: none;
+  border-top-color: var(--border) !important;
+  opacity: 0.85;
+}
+
+.skeleton-row {
+  pointer-events: none;
+  border-left-color: var(--border) !important;
+  opacity: 0.85;
+}

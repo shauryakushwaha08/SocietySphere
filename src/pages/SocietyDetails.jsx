@@ -14,10 +14,12 @@ import {
   HelpCircle,
   Trophy,
   GitBranch,
+  Columns,
 } from "lucide-react";
 import societies from "../data/societies";
 import { categoryColors } from "../utils/categoryStyles";
 import BookmarkButton from "../components/BookmarkButton";
+import DeadlineCountdown from "../components/DeadlineCountdown";
 import "./SocietyDetails.css";
 
 function SocietyDetails() {
@@ -105,17 +107,22 @@ function SocietyDetails() {
           {/* Direct CTA */}
           <div className="hero-cta-block">
             {society.recruitmentOpen ? (
-              <Link to={`/apply/${society.id}`} className="hero-apply-btn">
-                <span>Apply for Roles</span>
-                <Send size={15} />
-              </Link>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", width: "100%", maxWidth: "340px" }}>
+                <Link to={`/apply/${society.id}`} className="hero-apply-btn">
+                  <span>Apply for Roles</span>
+                  <Send size={15} />
+                </Link>
+                {society.recruitmentDeadline && (
+                  <div className="deadline-block">
+                    <span className="deadline-subtext">
+                      <Clock size={12} /> Deadline: {society.recruitmentDeadline}
+                    </span>
+                    <DeadlineCountdown deadline={society.recruitmentDeadline} compact={false} />
+                  </div>
+                )}
+              </div>
             ) : (
               <span className="recruitment-closed-pill">Recruitment Closed</span>
-            )}
-            {society.recruitmentDeadline && society.recruitmentOpen && (
-              <span className="deadline-subtext">
-                <Clock size={12} /> Deadline: {society.recruitmentDeadline}
-              </span>
             )}
           </div>
         </div>

@@ -169,6 +169,7 @@
 .hero-apply-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.55rem;
   background: var(--theme);
   color: var(--bg);
@@ -192,6 +193,14 @@
   background: var(--surface-hover);
   border: 1px solid var(--border);
   color: var(--text-soft);
+}
+
+.deadline-block{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .deadline-subtext {

@@ -6,7 +6,6 @@ import {
   Calendar,
   Users,
   Search,
-  X,
   Clock,
   Layers,
   Award,

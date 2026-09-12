@@ -40,8 +40,13 @@ function SocietyCard({ society, index, viewMode = "grid" }) {
 
           <div className="society-action-btns">
             <BookmarkButton societyId={society.id} />
-            {society.recruitmentOpen && (
+            {society.recruitmentOpen ? (
               <Link to={`/apply/${society.id}`} className="card-apply-btn" title="Apply now">
+                <Send size={13} />
+                <span>Apply</span>
+              </Link>
+            ) : (
+              <Link className="card-apply-btn closed" title="Apply now">
                 <Send size={13} />
                 <span>Apply</span>
               </Link>
@@ -114,7 +119,10 @@ function SocietyCard({ society, index, viewMode = "grid" }) {
             Apply <Send size={12} />
           </Link>
         ) : (
-          <span className="closed-label">Closed</span>
+          <Link className="card-apply-pill closed" title="Apply now">
+            <Send size={13} />
+            <span>Apply</span>
+          </Link>
         )}
       </div>
     </article>

@@ -1,24 +1,26 @@
 .apply-page {
-  max-width: 1100px;
+  max-width: 1040px;
+  width: 100%;
   margin: 0 auto;
-  padding: 3rem 1.5rem 5rem;
+  padding: 1.25rem 1.25rem 2rem;
+  box-sizing: border-box;
 }
 
 .apply-layout {
   display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 3rem;
-  margin-top: 1.5rem;
+  grid-template-columns: 300px 1fr;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
 }
 
 .apply-intro {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 2rem;
+  padding: 1.5rem;
   height: fit-content;
   position: sticky;
-  top: 90px;
+  top: 80px;
 }
 
 .apply-intro .logo-chip {
@@ -72,6 +74,7 @@
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 2.2rem;
+  min-width: 0;
 }
 
 .draft-alert {
@@ -168,6 +171,7 @@
 .field input,
 .field select,
 .field textarea {
+  min-width: 0;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -324,6 +328,16 @@
 
   .apply-form-wrapper {
     padding: 1.5rem 1.25rem;
+  }
+
+  .draft-alert,
+  .form-submit-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .draft-alert {
+    gap: 0.5rem;
   }
 
   .apply-footer-row {

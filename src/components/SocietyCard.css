@@ -355,6 +355,12 @@
   text-decoration: none;
 }
 
+.closed{
+  color: var(--text-soft);
+  background-color: var(--border);
+  pointer-events: none;
+}
+
 .card-view-btn {
   display: inline-flex;
   align-items: center;
@@ -398,5 +404,134 @@
     border-top: 1px solid var(--border);
     padding-top: 0.65rem;
     margin-top: 0.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .society-card {
+    padding: 0.9rem 0.95rem;
+  }
+
+  .society-card-header {
+    margin-bottom: 0.65rem;
+  }
+
+  .logo-chip {
+    width: 42px;
+    height: 42px;
+    border-radius: 7px;
+  }
+
+  .status-badge-row {
+    margin-bottom: 0.45rem;
+  }
+
+  .status-badge {
+    font-size: 0.68rem;
+    padding: 0.18rem 0.45rem;
+  }
+
+  .members-badge {
+    font-size: 0.68rem;
+  }
+
+  .card-title-link h3 {
+    font-size: 1.1rem;
+    line-height: 1.2;
+    margin-bottom: 0.2rem;
+  }
+
+  .card-tagline {
+    font-size: 0.82rem;
+    line-height: 1.35;
+    -webkit-line-clamp: 2;
+    margin-bottom: 0.25rem;
+  }
+
+  .society-card-tags,
+  .card-deadline-hint {
+    display: none !important;
+  }
+
+  .society-card-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .card-details-link {
+    font-size: 0.8rem;
+  }
+
+  .card-apply-pill {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.76rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .society-card {
+    padding: 0.85rem 0.85rem;
+  }
+
+  .card-header-actions {
+    gap: 0.35rem;
+  }
+
+  .society-side-meta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .society-action-btns {
+    width: 100%;
+  }
+
+  .card-apply-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .society-card {
+    padding: 0.75rem 0.7rem;
+  }
+
+  .logo-chip {
+    width: 38px;
+    height: 38px;
+    padding: 3px;
+  }
+
+  .card-title-link h3 {
+    font-size: 0.98rem;
+  }
+
+  .card-tagline {
+    font-size: 0.78rem;
+    -webkit-line-clamp: 1;
+  }
+
+  .society-card-footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+  }
+
+  .card-details-link {
+    font-size: 0.75rem;
+  }
+
+  .card-apply-pill {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.72rem;
   }
 }

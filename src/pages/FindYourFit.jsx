@@ -177,7 +177,7 @@ export default function FindYourFit() {
   const rankedSocieties = showResults ? calculateMatches() : [];
 
   return (
-    <main className="find-fit-container">
+    <main className={`find-fit-container ${showResults ? "results-active" : "quiz-active"}`}>
       <div className="find-fit-header">
         <div className="section-kicker">
           <Sparkles size={14} /> CAMPUS COMPASS

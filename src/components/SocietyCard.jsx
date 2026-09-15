@@ -12,7 +12,7 @@ function SocietyCard({ society, index, viewMode = "grid" }) {
     return (
       <div className="society-list-row" style={{ borderLeftColor: color }}>
         <span className="society-index">{String(index + 1).padStart(2, "0")}</span>
-        <div className="logo-chip">
+        <div className="logo-chip" style={{border : `1px solid ${color}`}}>
           <img src={society.logo} alt={`${society.name} logo`} loading="lazy" />
         </div>
         <div className="society-info">
@@ -28,20 +28,20 @@ function SocietyCard({ society, index, viewMode = "grid" }) {
           <div className="society-card-tags">
             {society.tags?.slice(0, 3).map((tag) => (
               <span key={tag} className="society-tag-pill">
-                #{tag}
+                {tag}
               </span>
             ))}
           </div>
         </div>
 
         <div className="society-side-meta">
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.25rem" }}>
-            <span className={`status-badge ${society.recruitmentOpen ? "open" : "closed"}`}>
-              <span className="status-dot" /> {society.recruitmentOpen ? "Recruiting" : "Closed"}
-            </span>
+          <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", gap: "0.25rem" }}>
             {society.recruitmentOpen && society.recruitmentDeadline && (
               <DeadlineCountdown deadline={society.recruitmentDeadline} compact={true} />
             )}
+            <span className={`status-badge ${society.recruitmentOpen ? "open" : "closed"}`}>
+              <span className="status-dot" /> {society.recruitmentOpen ? "Recruiting" : "Closed"}
+            </span>
           </div>
 
           <div className="society-action-btns">
@@ -70,7 +70,7 @@ function SocietyCard({ society, index, viewMode = "grid" }) {
   return (
     <article className="society-card" style={{ borderTopColor: color }}>
       <div className="society-card-header">
-        <div className="logo-chip">
+        <div className="logo-chip" style={{border : `1px solid ${color}`}}>
           <img src={society.logo} alt={`${society.name} logo`} loading="lazy" />
         </div>
         <div className="card-header-actions">
@@ -82,37 +82,33 @@ function SocietyCard({ society, index, viewMode = "grid" }) {
       </div>
 
       <div className="society-card-body">
-        <div className="status-badge-row">
-          <span className={`status-badge ${society.recruitmentOpen ? "open" : "closed"}`}>
-            <span className="status-dot" /> {society.recruitmentOpen ? "Recruitment Open" : "Closed"}
-          </span>
-          {society.membersCount && (
-            <span className="members-badge">
-              <Users size={12} /> {society.membersCount}
-            </span>
-          )}
-        </div>
+
 
         <Link to={`/society/${society.id}`} className="card-title-link">
           <h3>{society.name}</h3>
         </Link>
         <p className="card-tagline">{society.tagline}</p>
-
+        {society.description && (
+          <p className="society-list-desc">{society.description}</p>
+        )}
         {society.tags && (
           <div className="society-card-tags">
             {society.tags.slice(0, 3).map((tag) => (
               <span key={tag} className="society-tag-pill">
-                #{tag}
+                {tag}
               </span>
             ))}
           </div>
         )}
 
-        {society.recruitmentOpen && society.recruitmentDeadline && (
-          <div className="card-deadline-hint">
-            <DeadlineCountdown deadline={society.recruitmentDeadline} compact={true} />
+        <div className="card-deadline-hint">
+          <div className="status-badge-row">
+            <span className={`status-badge ${society.recruitmentOpen ? "open" : "closed"}`}>
+              <span className="status-dot" /> {society.recruitmentOpen ? "Recruitment Open" : "Closed"}
+            </span>
           </div>
-        )}
+          <DeadlineCountdown deadline={society.recruitmentDeadline} compact={true} />
+        </div>
       </div>
 
       <div className="society-card-footer">

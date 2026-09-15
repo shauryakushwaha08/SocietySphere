@@ -55,7 +55,7 @@ const societies = [
     eligibility: "Open to students across all engineering branches with keen interest in hardware, embedded systems, electronics, or tech management.",
     roles: ["Embedded & Robotics", "Software & Web", "Design & Media", "Corporate Relations & Logistics"],
     recruitmentOpen: false,
-    recruitmentDeadline: "Recruitment begins mid-semester",
+    recruitmentDeadline: "2026-09-10",
     foundedYear: 2002,
     membersCount: "420+",
     meetingSchedule: "Wednesdays 5:30 PM · ECE Block Lab 4",

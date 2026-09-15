@@ -107,15 +107,6 @@
   color: var(--text-soft);
 }
 
-.countdown-box.expired {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: var(--danger-subtle);
-  border: 1px solid var(--danger);
-  color: var(--danger);
-  border-radius: 6px;
-  padding: 0.3rem 0.6rem;
-  font-size: 0.75rem;
-  font-weight: 600;
+.expired {
+  color: var(--danger) !important;
 }

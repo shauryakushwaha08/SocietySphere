@@ -4,12 +4,10 @@
   height: 52px;
   border-radius: 8px;
   background-color: #FFFFFF;
-  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 4px;
 }
 
 .logo-chip img {
@@ -81,7 +79,7 @@
 .society-tag-pill {
   font-size: 0.72rem;
   color: var(--text-soft);
-  background: var(--surface-hover);
+  background: var(--bg);
   border: 1px solid var(--border);
   padding: 0.15rem 0.45rem;
   border-radius: 4px;
@@ -126,15 +124,14 @@
 
 /* Grid Card layout */
 .society-card {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--surface);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-top: 3px solid var(--theme);
   border-radius: 10px;
-  padding: 1.25rem;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-  position: relative;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.18s ease;
 }
 
 .society-card:hover {
@@ -168,7 +165,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  margin-bottom: 0.65rem;
 }
 
 .members-badge {
@@ -186,7 +182,7 @@
 }
 
 .card-title-link h3 {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   line-height: 1.2;
   transition: color 0.15s ease;
 }
@@ -196,18 +192,20 @@
 }
 
 .card-tagline {
-  font-size: 0.88rem;
-  color: var(--text-soft);
-  line-height: 1.45;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  font-size: 0.84rem;
+  color: var(--theme);
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.65rem;
 }
 
 .card-deadline-hint {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.4rem;
   font-size: 0.73rem;
   color: var(--important);
@@ -247,12 +245,16 @@
   gap: 0.4rem;
   background-color: var(--theme);
   color: var(--bg);
-  padding: 0.35rem 0.85rem;
+  /* padding: 0.35rem 0.85rem; */
   border-radius: 5px;
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
   font-weight: 700;
   text-decoration: none;
-  transition: transform 0.15s ease;
+  /* transition: transform 0.15s ease; */
+
+  padding: 0.45rem 0.95rem;
+  font-size: 0.82rem;
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
 .card-apply-pill:hover {
@@ -326,6 +328,18 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.society-list-desc {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-soft);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
 }
 
 .society-side-meta {

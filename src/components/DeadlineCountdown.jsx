@@ -59,20 +59,20 @@ export default function DeadlineCountdown({ deadline, compact = false, showLabel
     );
   }
 
-  if (timeLeft.expired) {
-    return (
-      <div className={`countdown-box expired ${compact ? "compact" : ""}`}>
-        <AlertCircle size={compact ? 12 : 15} />
-        <span>Recruitment Cycle Ended</span>
-      </div>
-    );
-  }
+  // if (timeLeft.expired) {
+  //   return (
+  //     <div className={`countdown-box expired ${compact ? "compact" : ""}`}>
+  //       <AlertCircle size={compact ? 12 : 15} />
+  //       <span>Recruitment Cycle Ended</span>
+  //     </div>
+  //   );
+  // }
 
   if (compact) {
     return (
       <div className="countdown-compact" title={`Closes in ${timeLeft.days}d ${timeLeft.hours}h ${timeLeft.minutes}m ${timeLeft.seconds}s`}>
         <Clock size={12} className="countdown-pulse-icon" />
-        <span className="countdown-compact-time">
+        <span className={`countdown-compact-time ${timeLeft.expired ? "expired" : "" }`}>
           {timeLeft.days > 0 ? `${timeLeft.days}d ` : ""}
           {String(timeLeft.hours).padStart(2, "0")}h:
           {String(timeLeft.minutes).padStart(2, "0")}m:

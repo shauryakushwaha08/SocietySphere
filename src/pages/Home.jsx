@@ -13,8 +13,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import societies from "../data/societies";
 import { campusEvents } from "../data/events";
-import { categoryColors } from "../utils/categoryStyles";
-import BookmarkButton from "../components/BookmarkButton";
+import SocietyCard from "../components/SocietyCard";
 import "./Home.css";
 
 function Home() {
@@ -129,53 +128,9 @@ function Home() {
         </div>
 
         <div className="featured-societies-grid">
-          {recruitingSocieties.slice(0, 3).map((soc) => {
-            const color = categoryColors[soc.category] || "var(--theme)";
-            return (
-              <div key={soc.id} className="featured-soc-card" style={{ borderTopColor: color }}>
-                <div className="featured-soc-top">
-                  <div className="logo-chip">
-                    <img src={soc.logo} alt={soc.name} />
-                  </div>
-                  <div className="featured-header-actions">
-                    <span className="category-label" style={{ color }}>
-                      {soc.category}
-                    </span>
-                    <BookmarkButton societyId={soc.id} />
-                  </div>
-                </div>
-
-                <div className="featured-soc-body">
-                  <Link to={`/society/${soc.id}`} className="featured-title-link">
-                    <h3>{soc.name}</h3>
-                  </Link>
-                  <p className="featured-tagline">{soc.tagline}</p>
-                  <p className="featured-desc">{soc.description}</p>
-
-                  <div className="featured-roles-preview">
-                    <span>Roles:</span>
-                    <div className="roles-tags">
-                      {soc.roles.slice(0, 3).map((r) => (
-                        <span key={r} className="role-tag">{r}</span>
-                      ))}
-                      {soc.roles.length > 3 && (
-                        <span className="role-tag more">+{soc.roles.length - 3}</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="featured-soc-footer">
-                  <Link to={`/society/${soc.id}`} className="featured-details-link">
-                    Details <ArrowRight size={14} />
-                  </Link>
-                  <Link to={`/apply/${soc.id}`} className="featured-apply-btn">
-                    Apply Now
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
+          {recruitingSocieties.slice(0, 3).map((soc, index) => (
+            <SocietyCard key={soc.id} society={soc} index={index} />
+          ))}
         </div>
       </section>
 

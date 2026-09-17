@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { Search, X, ArrowRight, Compass, Calendar, Tag } from "lucide-react";
+import { categoryColors } from "../utils/categoryStyles";
 import societies from "../data/societies";
 import { campusEvents } from "../data/events";
 import "./QuickSearchModal.css";
@@ -145,7 +146,7 @@ export default function QuickSearchModal({ isOpen, onClose }) {
                   <div className="search-item-details">
                     <div className="search-item-title-row">
                       <strong>{s.name}</strong>
-                      <span className="search-badge category">{s.category}</span>
+                      <span className="search-badge category" style={{color : `${categoryColors[s.category]}`}}>{s.category}</span>
                       {s.recruitmentOpen && <span className="search-badge open">Recruiting</span>}
                     </div>
                     <span className="search-item-tagline">{s.tagline}</span>

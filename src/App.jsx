@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Societies from "./pages/Societies";
 import Navbar from "./components/Navbar";
@@ -10,12 +10,15 @@ import FindYourFit from "./pages/FindYourFit";
 import Events from "./pages/Events";
 import QuickSearchModal from "./components/QuickSearchModal";
 import ScrollToTop from "./utils/ScrollToTop";
+import Footer from "./components/Footer";
 
 function App() {
   const [theme, setTheme] = useState(
     () => localStorage.getItem("theme") || "dark",
   );
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const location = useLocation();
+  const isApplyPage = location.pathname.startsWith("/apply");
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -45,17 +48,21 @@ function App() {
         toggleTheme={toggleTheme}
         onOpenSearch={() => setIsSearchOpen(true)}
       />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/societies" element={<Societies />} />
-        <Route path="/society/:id" element={<SocietyDetails />} />
-        <Route path="/apply/:id" element={<Apply />} />
-        <Route path="/applications" element={<Applications />} />
-        <Route path="/find-your-fit" element={<FindYourFit />} />
-        <Route path="/FindYourFit" element={<FindYourFit />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/Events" element={<Events />} />
-      </Routes>
+      <main className="app-main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/societies" element={<Societies />} />
+          <Route path="/society/:id" element={<SocietyDetails />} />
+          <Route path="/apply/:id" element={<Apply />} />
+          <Route path="/applications" element={<Applications />} />
+          <Route path="/find-your-fit" element={<FindYourFit />} />
+          <Route path="/FindYourFit" element={<FindYourFit />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/Events" element={<Events />} />
+        </Routes>
+      </main>
+
+      {!isApplyPage && <Footer onOpenSearch={() => setIsSearchOpen(true)} />}
 
       <QuickSearchModal
         isOpen={isSearchOpen}

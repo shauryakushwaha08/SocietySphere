@@ -85,7 +85,7 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
             <Compass size={15} /> Societies
           </NavLink>
           <NavLink to="/events" className={({ isActive }) => (isActive ? "active" : "")}>
-            <Calendar size={15} /> Events
+            <Calendar size={15} /> Calendar
           </NavLink>
           <NavLink to="/find-your-fit" className={({ isActive }) => (isActive ? "active" : "")}>
             <Sparkles size={15} /> Match Quiz
@@ -210,7 +210,7 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
 
                 <NavLink to="/events" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>
                   <Calendar size={18} />
-                  <span>Events & Deadlines</span>
+                  <span>Calendar & Deadlines</span>
                 </NavLink>
 
                 <NavLink to="/find-your-fit" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>

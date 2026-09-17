@@ -1,5 +1,6 @@
 const APPLICATIONS_KEY = "societysphere_applications";
 const BOOKMARKS_KEY = "societysphere_bookmarks";
+const INTERESTED_EVENTS_KEY = "societysphere_interested_events";
 const DRAFTS_KEY_PREFIX = "societysphere_draft_";
 
 export function getApplications() {
@@ -109,3 +110,30 @@ export function clearDraft(societyId) {
     console.error("Failed to clear draft", e);
   }
 }
+
+export function getInterestedEvents() {
+  try {
+    const data = localStorage.getItem(INTERESTED_EVENTS_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function toggleInterestedEvent(eventId) {
+  const events = getInterestedEvents();
+  let updated;
+  if (events.includes(eventId)) {
+    updated = events.filter((id) => id !== eventId);
+  } else {
+    updated = [...events, eventId];
+  }
+  localStorage.setItem(INTERESTED_EVENTS_KEY, JSON.stringify(updated));
+  window.dispatchEvent(new CustomEvent("societysphere:saved-events-updated", { detail: updated }));
+  return updated;
+}
+
+export function isEventInterested(eventId) {
+  return getInterestedEvents().includes(eventId);
+}
+

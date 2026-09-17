@@ -20,7 +20,7 @@
 }
 
 .countdown-pulse-icon {
-  color: var(--sports);
+  color: var(--important);
   animation: pulse-clock 2s infinite ease-in-out;
 }
 

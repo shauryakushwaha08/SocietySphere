@@ -290,6 +290,7 @@
 .society-list-view {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 /* Empty State */

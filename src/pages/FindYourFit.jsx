@@ -6,16 +6,18 @@ import {
   RotateCcw,
   CheckCircle,
   Compass,
-  Zap,
   BookOpen,
   Trophy,
   Code,
   Mic,
   Activity,
   Award,
+  Briefcase,
+  HeartHandshake,
+  Car,
 } from "lucide-react";
 import societies from "../data/societies";
-import { categoryColors } from "../utils/categoryStyles";
+import { categoryColors, categoryBgColors, categoryCodes } from "../utils/categoryStyles";
 import BookmarkButton from "../components/BookmarkButton";
 import "./FindYourFit.css";
 
@@ -27,35 +29,59 @@ const questions = [
     options: [
       {
         id: "coding",
-        label: "Software & Web Development",
+        label: "Software & Web Engineering",
         desc: "Building web apps, cloud tech, open-source projects, and collaborating on code.",
         icon: Code,
-        categoryWeight: { Tech: 3, Literary: 0, Sports: 0 },
+        categoryWeight: { Technical: 3, Tech: 3 },
         tags: ["WebDev", "Cloud", "OpenSource", "FullStack"],
       },
       {
-        id: "algorithms",
-        label: "Algorithms & Problem Solving",
-        desc: "Competitive programming contests, DSA puzzles, and algorithmic thinking.",
-        icon: Zap,
-        categoryWeight: { Tech: 3, Literary: 0, Sports: 0 },
-        tags: ["DSA", "CompetitiveCoding", "Algorithms"],
+        id: "cultural",
+        label: "Music, Dance, Theatre & Arts",
+        desc: "Stage productions, musical bands, street plays (Nukkad), and creative expression.",
+        icon: Mic,
+        categoryWeight: { Cultural: 3 },
+        tags: ["Dance", "Music", "Dramatics", "CreativeArts"],
       },
       {
-        id: "creative",
+        id: "entrepreneurship",
+        label: "Startups, Venture & Consulting",
+        desc: "Incubating business ideas, management consulting cases, and founder pitches.",
+        icon: Briefcase,
+        categoryWeight: { Entrepreneurship: 3 },
+        tags: ["Startup", "Entrepreneurship", "Consulting", "Finance"],
+      },
+      {
+        id: "literary",
         label: "Creative Writing, Debates & Public Speaking",
         desc: "Oratory battles, spoken word poetry, writing campus magazines, and intellectual discourse.",
-        icon: Mic,
-        categoryWeight: { Tech: 0, Literary: 3, Sports: 0 },
+        icon: BookOpen,
+        categoryWeight: { Literary: 3 },
         tags: ["Debate", "Writing", "PublicSpeaking", "Poetry"],
       },
       {
-        id: "athletics",
-        label: "Sports, Athletics & Event Operations",
-        desc: "Competitive sports tournaments, campus leagues, fitness events, and operations.",
+        id: "social",
+        label: "Community Outreach & Social Impact",
+        desc: "Blood donation drives, campus sustainability, education outreach, and PR.",
+        icon: HeartHandshake,
+        categoryWeight: { Social: 3 },
+        tags: ["PublicRelations", "Community", "SocialEnterprise", "Impact"],
+      },
+      {
+        id: "sports",
+        label: "Esports, Chess & Athletics",
+        desc: "Gaming tournaments, chess leagues, sports championships, and team spirit.",
         icon: Activity,
-        categoryWeight: { Tech: 0, Literary: 0, Sports: 3 },
-        tags: ["Athletics", "Football", "Cricket", "Operations"],
+        categoryWeight: { Sports: 3 },
+        tags: ["Esports", "Gaming", "Athletics", "Tournaments"],
+      },
+      {
+        id: "automotive",
+        label: "Formula EV Motorsports & Drones",
+        desc: "Designing racecars, high-speed drones, CAD aerodynamics, and powertrain engineering.",
+        icon: Car,
+        categoryWeight: { Automotive: 3 },
+        tags: ["FormulaStudent", "Motorsports", "ElectricVehicle", "Aerodynamics"],
       },
     ],
   },
@@ -270,6 +296,9 @@ export default function FindYourFit() {
           <div className="ranked-societies-list">
             {rankedSocieties.map((soc, index) => {
               const color = categoryColors[soc.category] || "var(--theme)";
+              const bgColor = categoryBgColors[soc.category] || "rgba(61, 220, 151, 0.12)";
+              const catCode = soc.categoryCode || categoryCodes[soc.category] || "SOC";
+              const clubCode = soc.code || soc.name.slice(0, 4).toUpperCase();
               return (
                 <div key={soc.id} className="match-card" style={{ borderLeftColor: color }}>
                   <div className="match-rank-badge">#{index + 1} Best Fit</div>
@@ -282,8 +311,15 @@ export default function FindYourFit() {
                         <Link to={`/society/${soc.id}`} className="match-title-link">
                           <h3>{soc.name}</h3>
                         </Link>
-                        <span className="match-category-pill" style={{ color }}>
+                        <span
+                          className="category-label"
+                          style={{ color, backgroundColor: bgColor }}
+                          title={`Category: ${soc.category} (${catCode})`}
+                        >
                           {soc.category}
+                        </span>
+                        <span className="club-code-badge" style={{ borderColor: color }}>
+                          {soc.code}
                         </span>
                         <div className="match-score-badge">
                           <strong>{soc.matchScore}%</strong> match

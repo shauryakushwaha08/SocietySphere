@@ -29,6 +29,8 @@
   --literary-subtle: rgba(232, 115, 90, 0.12);
   --sports: #E8B339;
   --sports-subtle: rgba(232, 179, 57, 0.12);
+  --cultural: #EC4899;
+  --cultural-subtle: rgba(236, 72, 153, 0.12);
 
   --font-heading: "Zilla Slab", serif;
   --font-body: "IBM Plex Sans", sans-serif;
@@ -65,6 +67,8 @@
   --literary-subtle: rgba(225, 29, 72, 0.1);
   --sports: #D97706;
   --sports-subtle: rgba(217, 119, 6, 0.1);
+  --cultural: #DB2777;
+  --cultural-subtle: rgba(219, 39, 119, 0.1);
 }
 
 *,
@@ -248,4 +252,48 @@ kbd {
   line-height: 1;
   padding: 2px 5px;
   white-space: nowrap;
+}
+
+/* Micro-animations & Transitions */
+@keyframes pageFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-page-root,
+.societies-container,
+.society-details-wrapper,
+.apply-page,
+.applications-container,
+.find-fit-container,
+.events-container {
+  animation: pageFadeUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Skeleton Loading Shimmer Animation */
+@keyframes skeletonShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-box {
+  background: linear-gradient(
+    90deg,
+    var(--surface-hover) 25%,
+    var(--border) 37%,
+    var(--surface-hover) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeletonShimmer 1.4s ease infinite;
+  border-radius: 6px;
 }

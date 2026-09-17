@@ -362,6 +362,7 @@
 .match-card-actions {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
   margin-top: 1.25rem;
   padding-top: 1rem;
@@ -415,8 +416,6 @@
   }
 
   .match-apply-btn {
-    margin-left: 0;
-    width: 100%;
     justify-content: center;
   }
 }
@@ -460,5 +459,14 @@
     font-size: 0.85rem;
     margin-bottom: 0;
     line-height: 1.25;
+  }
+}
+
+@media (max-width: 450px) {
+  .match-apply-btn{
+    width: 100%;
+  }
+  .match-desc{
+    display: none !important;
   }
 }

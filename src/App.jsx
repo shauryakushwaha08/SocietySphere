@@ -8,6 +8,7 @@ import Apply from "./pages/Apply";
 import Applications from "./pages/Applications";
 import FindYourFit from "./pages/FindYourFit";
 import Events from "./pages/Events";
+import NotFound from "./pages/NotFound";
 import QuickSearchModal from "./components/QuickSearchModal";
 import ScrollToTop from "./utils/ScrollToTop";
 import Footer from "./components/Footer";
@@ -59,6 +60,7 @@ function App() {
           <Route path="/FindYourFit" element={<FindYourFit />} />
           <Route path="/events" element={<Events />} />
           <Route path="/Events" element={<Events />} />
+          <Route path="*" element={<NotFound onOpenSearch={() => setIsSearchOpen(true)} />} />
         </Routes>
       </main>
 

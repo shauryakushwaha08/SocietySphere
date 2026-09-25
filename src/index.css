@@ -297,7 +297,8 @@ kbd {
 .apply-page,
 .applications-container,
 .find-fit-container,
-.events-container {
+.events-container,
+.not-found-page {
   animation: pageFadeUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 

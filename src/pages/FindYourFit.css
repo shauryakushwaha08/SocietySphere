@@ -322,9 +322,9 @@
   display: inline-flex;
   align-items: baseline;
   gap: 0.25rem;
-  background: rgba(61, 220, 151, 0.12);
-  color: var(--theme);
-  border: 1px solid rgba(61, 220, 151, 0.25);
+  background: rgba(217, 220, 61, 0.12);
+  color: var(--important);
+  border: 1px solid rgba(220, 177, 46, 0.25);
   padding: 0.25rem 0.65rem;
   border-radius: 20px;
   font-size: 0.82rem;
@@ -399,14 +399,6 @@
 }
 
 @media (max-width: 640px) {
-  .quiz-card {
-    padding: 1.5rem 1.25rem;
-  }
-
-  .options-grid {
-    grid-template-columns: 1fr;
-  }
-
   .match-main-content {
     flex-direction: column;
   }
@@ -418,9 +410,7 @@
   .match-apply-btn {
     justify-content: center;
   }
-}
 
-@media (max-width: 640px) {
   .question-sub,
   .option-bullet,
   .quiz-option-card p {

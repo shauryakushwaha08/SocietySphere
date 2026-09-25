@@ -864,7 +864,6 @@
     border-radius: 7px;
   }
 
-  .featured-societies-grid,
   .home-events-grid,
   .pillars-grid {
     grid-template-columns: 1fr;

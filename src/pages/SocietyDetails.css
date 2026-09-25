@@ -102,12 +102,14 @@
 .hero-top-row {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   gap: 1.75rem;
 }
 
-.hero-main-title-block {
-  flex: 1;
-  min-width: 0;
+.hero-details{
+  display: flex;
+  gap: 1.75rem;
+  width: 100%;
 }
 
 .hero-badges-row {
@@ -161,9 +163,10 @@
 .hero-cta-block {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   gap: 0.5rem;
   flex-shrink: 0;
+  max-width: 280px;
+  width: 100%;
 }
 
 .hero-apply-btn {
@@ -620,13 +623,8 @@
 }
 
 @media (max-width: 768px) {
-  .hero-top-row {
-    flex-direction: column;
-  }
-
   .hero-cta-block {
     align-items: stretch;
-    width: 100%;
   }
 
   .hero-apply-btn {
@@ -643,13 +641,13 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 690px) {
   .society-details-wrapper {
     padding: 0.85rem 0.85rem 2rem;
   }
 
   .society-hero-card {
-    padding: 1rem 0.85rem;
+    padding: 1.5rem 1.1rem;
     margin-bottom: 0.85rem;
   }
 
@@ -719,7 +717,6 @@
   .leads-grid,
   .roles-cards-grid,
   .flagships-grid {
-    grid-template-columns: 1fr;
     gap: 0.75rem;
   }
 
@@ -741,6 +738,17 @@
   }
 }
 
+@media (max-width : 600px){
+  .hero-top-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-details{
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 @media (max-width: 480px) {
   .society-hero-card {
     padding: 1.5rem 1.1rem;
@@ -759,6 +767,9 @@
     padding: 0.35rem 0.6rem;
     font-size: 0.78rem;
   }
+  .hero-cta-block{
+    width: 100%;
+  }
 }
 
 @media (max-width: 360px) {
@@ -771,7 +782,6 @@
   }
 
   .hero-meta-bar {
-    grid-template-columns: 1fr;
     gap: 0.75rem;
     padding-top: 1rem;
     margin-top: 1.25rem;
@@ -806,5 +816,15 @@
   .details-top-actions .share-btn {
     flex: 1;
     justify-content: center;
+  }
+}
+@media (max-width: 380px) {
+  .hero-details{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .hero-cta-block{
+    width: 100%;
   }
 }

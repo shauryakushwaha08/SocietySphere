@@ -368,7 +368,6 @@
   }
 
   .application-details-grid {
-    grid-template-columns: 1fr;
     padding: 0.85rem 0.75rem;
   }
 

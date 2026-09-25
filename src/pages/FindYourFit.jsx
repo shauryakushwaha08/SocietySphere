@@ -20,6 +20,7 @@ import societies from "../data/societies";
 import { categoryColors, categoryBgColors, categoryCodes } from "../utils/categoryStyles";
 import BookmarkButton from "../components/BookmarkButton";
 import "./FindYourFit.css";
+import SocietyCard from "../components/SocietyCard"
 
 const questions = [
   {
@@ -294,59 +295,15 @@ export default function FindYourFit() {
           </div>
 
           <div className="ranked-societies-list">
-            {rankedSocieties.map((soc, index) => {
-              const color = categoryColors[soc.category] || "var(--theme)";
-              const bgColor = categoryBgColors[soc.category] || "rgba(61, 220, 151, 0.12)";
-              const catCode = soc.categoryCode || categoryCodes[soc.category] || "SOC";
-              const clubCode = soc.code || soc.name.slice(0, 4).toUpperCase();
+            {rankedSocieties.map((society, index) => {
               return (
-                <div key={soc.id} className="match-card" style={{ borderLeftColor: color }}>
-                  <div className="match-rank-badge">#{index + 1} Best Fit</div>
-                  <div className="match-main-content">
-                    <div className="match-logo-wrap">
-                      <img src={soc.logo} alt={soc.name} />
-                    </div>
-                    <div className="match-info">
-                      <div className="match-title-row">
-                        <Link to={`/society/${soc.id}`} className="match-title-link">
-                          <h3>{soc.name}</h3>
-                        </Link>
-                        <span
-                          className="category-label"
-                          style={{ color, backgroundColor: bgColor }}
-                          title={`Category: ${soc.category} (${catCode})`}
-                        >
-                          {soc.category}
-                        </span>
-                        <span className="club-code-badge" style={{ borderColor: color }}>
-                          {soc.code}
-                        </span>
-                        <div className="match-score-badge">
-                          <strong>{soc.matchScore}%</strong> match
-                        </div>
-                      </div>
-                      <p className="match-tagline">{soc.tagline}</p>
-                      <p className="match-desc">{soc.description}</p>
-                      <div className="match-tags">
-                        {soc.tags?.map((t) => (
-                          <span key={t} className="match-tag">#{t}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="match-card-actions">
-                    <BookmarkButton societyId={soc.id} showLabel />
-                    <Link to={`/society/${soc.id}`} className="match-details-btn">
-                      <Compass size={15} /> View Society
-                    </Link>
-                    {soc.recruitmentOpen && (
-                      <Link to={`/apply/${soc.id}`} className="match-apply-btn">
-                        Apply Now <ArrowRight size={15} />
-                      </Link>
-                    )}
-                  </div>
-                </div>
+                <SocietyCard
+                  key={society.id}
+                  society={society}
+                  index={index}
+                  viewMode="list"
+                  match={true}
+                />
               );
             })}
           </div>

@@ -57,7 +57,7 @@ function SocietyDetails() {
       {/* Back link */}
       <div className="details-nav-bar">
         <Link to="/societies" className="back-link">
-          <ArrowLeft size={16} /> Back to Directory
+          <ArrowLeft size={16} /> Societies
         </Link>
 
         <div className="details-top-actions">
@@ -78,53 +78,53 @@ function SocietyDetails() {
       {/* Hero Header */}
       <section className="society-hero-card" style={{ borderTopColor: color }}>
         <div className="hero-top-row">
-          <div className="logo-chip large">
-            <img src={society.logo} alt={`${society.name} logo`} />
-          </div>
-
-          <div className="hero-main-title-block">
-            <div className="hero-badges-row">
-              <span className="category-pill" style={{ color }}>
-                {society.category}
-              </span>
-              <span
-                className={`details-status-badge ${
-                  society.recruitmentOpen ? "open" : "closed"
-                }`}
-              >
-                <span className="status-dot" />{" "}
-                {society.recruitmentOpen ? "Recruiting Now" : "Recruitment Closed"}
-              </span>
+          <div className="hero-details">
+            <div className="logo-chip large">
+              <img src={society.logo} alt={`${society.name} logo`} />
             </div>
 
-            <h1>{society.name}</h1>
-            {society.fullName && (
-              <p className="full-name">{society.fullName}</p>
-            )}
-            <p className="hero-tagline">{society.tagline}</p>
+            <div className="hero-main-title-block">
+              <div className="hero-badges-row">
+                <span className="category-pill" style={{ color }}>
+                  {society.category}
+                </span>
+                <span
+                  className={`details-status-badge ${
+                    society.recruitmentOpen ? "open" : "closed"
+                  }`}
+                >
+                  <span className="status-dot" />{" "}
+                  {society.recruitmentOpen ? "Recruiting Now" : "Recruitment Closed"}
+                </span>
+              </div>
+
+              <h1>{society.name}</h1>
+              {society.fullName && (
+                <p className="full-name">{society.fullName}</p>
+              )}
+              <p className="hero-tagline">{society.tagline}</p>
+            </div>
           </div>
 
           {/* Direct CTA */}
-          <div className="hero-cta-block">
-            {society.recruitmentOpen ? (
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", width: "100%", maxWidth: "340px" }}>
-                <Link to={`/apply/${society.id}`} className="hero-apply-btn">
-                  <span>Apply for Roles</span>
-                  <Send size={15} />
-                </Link>
-                {society.recruitmentDeadline && (
-                  <div className="deadline-block">
-                    <span className="deadline-subtext">
-                      <Clock size={12} /> Deadline: {society.recruitmentDeadline}
-                    </span>
-                    <DeadlineCountdown deadline={society.recruitmentDeadline} compact={false} />
-                  </div>
-                )}
-              </div>
-            ) : (
-              <span className="recruitment-closed-pill">Recruitment Closed</span>
-            )}
-          </div>
+          {society.recruitmentOpen ? (
+            <div className="hero-cta-block">
+              <Link to={`/apply/${society.id}`} className="hero-apply-btn">
+                <span>Apply for Roles</span>
+                <Send size={15} />
+              </Link>
+              {society.recruitmentDeadline && (
+                <div className="deadline-block">
+                  <span className="deadline-subtext">
+                    <Clock size={12} /> Deadline: {society.recruitmentDeadline}
+                  </span>
+                  <DeadlineCountdown deadline={society.recruitmentDeadline} compact={false} />
+                </div>
+              )}
+            </div>
+          ) : (
+            <span className="recruitment-closed-pill">Recruitment Closed</span>
+          )}
         </div>
 
         {/* Quick Meta Indicators Bar */}
@@ -222,7 +222,7 @@ function SocietyDetails() {
                   <div className="tags-list">
                     {society.tags.map((t) => (
                       <span key={t} className="focus-tag">
-                        #{t}
+                        {t}
                       </span>
                     ))}
                   </div>

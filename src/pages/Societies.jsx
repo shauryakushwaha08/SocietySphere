@@ -20,41 +20,36 @@ import "./Societies.css";
 function Societies() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Initialize state from URL query parameters if present
-  const categoryParam = searchParams.get("category");
-  const recruitingParam = searchParams.get("recruiting");
-  const queryParam = searchParams.get("q");
-
-  const [activeCategory, setActiveCategory] = useState(categoryParam || "All");
-  const [recruitmentFilter, setRecruitmentFilter] = useState(
-    recruitingParam === "true" ? "open" : "all"
-  );
+  const activeCategory = searchParams.get("category") || "All";
+  const recruitmentFilter = searchParams.get("recruiting") === "true" ? "open" : "all";
   const onlySaved = searchParams.get("saved") === "true";
-  const [query, setQuery] = useState(queryParam || "");
-  const [sortBy, setSortBy] = useState("default");
+  const query = searchParams.get("q") || "";
+  const sortBy = searchParams.get("sort") || "default";
+
   const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'list'
   const [bookmarkedIds, setBookmarkedIds] = useState(getBookmarks);
   const [isFiltering, setIsFiltering] = useState(false);
 
+  const updateParam = (key, value) => {
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value) {
+          next.set(key, value);
+        } else {
+          next.delete(key);
+        }
+        return next;
+      },
+      { replace: true }
+    );
+  };
+
   const handleCategorySelect = (cat) => {
     if (cat === activeCategory) return;
     setIsFiltering(true);
-    setActiveCategory(cat);
+    updateParam("category", cat !== "All" ? cat : null);
     setTimeout(() => setIsFiltering(false), 200);
-  };
-
-  const setOnlySaved = (valueOrFn) => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      const current = next.get("saved") === "true";
-      const nextVal = typeof valueOrFn === "function" ? valueOrFn(current) : valueOrFn;
-      if (nextVal) {
-        next.set("saved", "true");
-      } else {
-        next.delete("saved");
-      }
-      return next;
-    });
   };
 
   // Sync bookmark updates
@@ -66,23 +61,6 @@ function Societies() {
     return () => window.removeEventListener("societysphere:bookmarks-updated", handleSync);
   }, []);
 
-  // Sync URL search params
-  useEffect(() => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      if (activeCategory !== "All") next.set("category", activeCategory);
-      else next.delete("category");
-
-      if (recruitmentFilter === "open") next.set("recruiting", "true");
-      else next.delete("recruiting");
-
-      if (query.trim()) next.set("q", query.trim());
-      else next.delete("q");
-
-      return next;
-    }, { replace: true });
-  }, [activeCategory, recruitmentFilter, query, setSearchParams]);
-
   const categories = ["All", ...new Set(societies.map((s) => s.category))];
 
   // Filtering logic
@@ -93,9 +71,7 @@ function Societies() {
         activeCategory === "All" || society.category === activeCategory;
 
       const matchesRecruitment =
-        recruitmentFilter === "all" ||
-        (recruitmentFilter === "open" && recruitmentOpen) ||
-        (recruitmentFilter === "closed" && !recruitmentOpen);
+        recruitmentFilter === "all" || (recruitmentFilter === "open" && recruitmentOpen);
 
       const matchesSaved = !onlySaved || bookmarkedIds.includes(society.id);
 
@@ -113,11 +89,7 @@ function Societies() {
     });
 
   const clearFilters = () => {
-    setActiveCategory("All");
-    setRecruitmentFilter("all");
-    setOnlySaved(false);
-    setQuery("");
-    setSortBy("default");
+    setSearchParams(new URLSearchParams(), { replace: true });
   };
 
   const hasActiveFilters =

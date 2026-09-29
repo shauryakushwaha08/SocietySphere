@@ -1,11 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import {
   Sparkles,
-  ArrowRight,
   RotateCcw,
   CheckCircle,
-  Compass,
   BookOpen,
   Trophy,
   Code,
@@ -17,8 +14,7 @@ import {
   Car,
 } from "lucide-react";
 import societies from "../data/societies";
-import { categoryColors, categoryBgColors, categoryCodes } from "../utils/categoryStyles";
-import BookmarkButton from "../components/BookmarkButton";
+import { isRecruitmentOpen } from "../utils/recruitmentUtils";
 import "./FindYourFit.css";
 import SocietyCard from "../components/SocietyCard"
 
@@ -170,6 +166,7 @@ export default function FindYourFit() {
 
     return societies.map((soc) => {
       let score = 50; // base score
+      const recruitmentOpen = isRecruitmentOpen(soc.recruitmentDeadline);
 
       // Category matching
       if (selectedInterest?.categoryWeight) {
@@ -189,7 +186,7 @@ export default function FindYourFit() {
       }
 
       // Recruitment open bonus
-      if (soc.recruitmentOpen) {
+      if (recruitmentOpen) {
         score += 5;
       }
 

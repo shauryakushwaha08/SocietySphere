@@ -11,6 +11,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import societies from "../data/societies";
+import { isRecruitmentOpen } from "../utils/recruitmentUtils";
 import SocietyCard from "../components/SocietyCard";
 import SocietyCardSkeleton from "../components/SocietyCardSkeleton";
 import { getBookmarks } from "../utils/storage";
@@ -87,13 +88,14 @@ function Societies() {
   // Filtering logic
   const filteredSocieties = societies
     .filter((society) => {
+      const recruitmentOpen = isRecruitmentOpen(society.recruitmentDeadline);
       const matchesCategory =
         activeCategory === "All" || society.category === activeCategory;
 
       const matchesRecruitment =
         recruitmentFilter === "all" ||
-        (recruitmentFilter === "open" && society.recruitmentOpen) ||
-        (recruitmentFilter === "closed" && !society.recruitmentOpen);
+        (recruitmentFilter === "open" && recruitmentOpen) ||
+        (recruitmentFilter === "closed" && !recruitmentOpen);
 
       const matchesSaved = !onlySaved || bookmarkedIds.includes(society.id);
 
@@ -105,7 +107,7 @@ function Societies() {
     })
     .sort((a, b) => {
       if (sortBy === "name-asc") return a.name.localeCompare(b.name);
-      if (sortBy === "recruiting-first") return (b.recruitmentOpen ? 1 : 0) - (a.recruitmentOpen ? 1 : 0);
+      if (sortBy === "recruiting-first") return (isRecruitmentOpen(b.recruitmentDeadline) ? 1 : 0) - (isRecruitmentOpen(a.recruitmentDeadline) ? 1 : 0);
       if (sortBy === "members") return parseInt(b.membersCount || "0", 10) - parseInt(a.membersCount || "0", 10);
       return 0;
     });

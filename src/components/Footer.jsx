@@ -60,7 +60,7 @@ export default function Footer({ onOpenSearch }) {
           <div className="pulse-item">
             <span className="live-indicator-dot" />
             <span className="pulse-text">
-              <strong>Society Recruitment Portal</strong> · 49 Societies &amp; Chapters Active
+              <strong>Society Recruitment Portal</strong> · 18 Societies &amp; Chapters Active
             </span>
           </div>
           <div className="pulse-actions">
@@ -121,7 +121,7 @@ export default function Footer({ onOpenSearch }) {
             </div>
 
             <div className="footer-badges-wrap">
-              <span className="footer-pill-chip">49 Student Societies</span>
+              <span className="footer-pill-chip">18 Student Societies</span>
               <span className="footer-pill-chip">7 Activity Domains</span>
               <span className="footer-pill-chip">All 4 Years</span>
               </div>

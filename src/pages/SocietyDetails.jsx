@@ -14,10 +14,10 @@ import {
   HelpCircle,
   Trophy,
   GitBranch,
-  Columns,
 } from "lucide-react";
 import societies from "../data/societies";
 import { categoryColors } from "../utils/categoryStyles";
+import { isRecruitmentOpen } from "../utils/recruitmentUtils";
 import BookmarkButton from "../components/BookmarkButton";
 import DeadlineCountdown from "../components/DeadlineCountdown";
 import "./SocietyDetails.css";
@@ -25,6 +25,7 @@ import "./SocietyDetails.css";
 function SocietyDetails() {
   const { id } = useParams();
   const society = societies.find((s) => s.id === id);
+  const recruitmentOpen = isRecruitmentOpen(society.recruitmentDeadline);
 
   const [activeTab, setActiveTab] = useState("overview"); // 'overview' | 'roles' | 'roadmap' | 'events' | 'faqs'
   const [copiedToast, setCopiedToast] = useState(false);
@@ -90,11 +91,11 @@ function SocietyDetails() {
                 </span>
                 <span
                   className={`details-status-badge ${
-                    society.recruitmentOpen ? "open" : "closed"
+                    recruitmentOpen ? "open" : "closed"
                   }`}
                 >
                   <span className="status-dot" />{" "}
-                  {society.recruitmentOpen ? "Recruiting Now" : "Recruitment Closed"}
+                  {recruitmentOpen ? "Recruiting Now" : "Recruitment Closed"}
                 </span>
               </div>
 
@@ -107,7 +108,7 @@ function SocietyDetails() {
           </div>
 
           {/* Direct CTA */}
-          {society.recruitmentOpen ? (
+          {recruitmentOpen ? (
             <div className="hero-cta-block">
               <Link to={`/apply/${society.id}`} className="hero-apply-btn">
                 <span>Apply for Roles</span>
@@ -409,7 +410,7 @@ function SocietyDetails() {
           <strong>Ready to put your name forward?</strong>
           <span>Join {society.name} and build something memorable this semester.</span>
         </div>
-        {society.recruitmentOpen ? (
+        {recruitmentOpen ? (
           <Link to={`/apply/${society.id}`} className="sticky-apply-btn">
             Apply Now <ArrowRight size={16} />
           </Link>

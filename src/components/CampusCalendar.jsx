@@ -15,6 +15,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { categoryColors } from "../utils/categoryStyles";
+import { isRecruitmentOpen } from "../utils/recruitmentUtils";
 import societies from "../data/societies";
 import {
   getInterestedEvents,
@@ -38,9 +39,8 @@ export default function CampusCalendar({
   events = [],
   onToast = () => {},
 }) {
-  // NSUT Campus reference anchor is September 2026
-  const [currentDate, setCurrentDate] = useState(new Date(2026, 8, 15)); // Sep 15, 2026
-  const [selectedDateStr, setSelectedDateStr] = useState("2026-09-25"); // default to a high-profile deadline day
+  const [currentDate, setCurrentDate] = useState(new Date(2026, 8, 15));
+  const [selectedDateStr, setSelectedDateStr] = useState("2026-09-25");
   const [activeFilter, setActiveFilter] = useState("all"); // 'all' | 'deadlines' | 'events' | 'saved'
   const [activeCategory, setActiveCategory] = useState("All");
   const [savedIds, setSavedIds] = useState(getInterestedEvents);
@@ -564,6 +564,7 @@ export default function CampusCalendar({
                 const isDeadline = event.type === "Deadline";
                 const isSaved = savedIds.includes(event.id);
                 const color = categoryColors[event.category] || "var(--theme)";
+                const recruitmentOpen = isRecruitmentOpen(society.recruitmentDeadline);
 
                 return (
                   <article
@@ -630,7 +631,7 @@ export default function CampusCalendar({
                         <span>{isSaved ? "Saved to Schedule" : "Save Date"}</span>
                       </button>
 
-                      {isDeadline && society?.recruitmentOpen ? (
+                      {isDeadline && recruitmentOpen ? (
                         <Link
                           to={`/apply/${society.id}`}
                           className="lineup-apply-btn"

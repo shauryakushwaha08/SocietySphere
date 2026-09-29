@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { campusEvents } from "../data/events";
 import { categoryColors } from "../utils/categoryStyles";
+import { isRecruitmentOpen } from "../utils/recruitmentUtils";
 import societies from "../data/societies";
 import CampusCalendar from "../components/CampusCalendar";
 import {
@@ -268,6 +269,7 @@ export default function Events({ initialView }) {
                 const color = categoryColors[event.category] || "var(--theme)";
                 const isSaved = interestedEvents.includes(event.id);
                 const isDeadline = event.type === "Deadline";
+                const recruitmentOpen = isRecruitmentOpen(society.recruitmentDeadline);
 
                 return (
                   <article
@@ -328,7 +330,7 @@ export default function Events({ initialView }) {
                         <span>{isSaved ? "Saved" : "Save Date"}</span>
                       </button>
 
-                      {isDeadline && society?.recruitmentOpen && (
+                      {isDeadline && recruitmentOpen && (
                         <Link to={`/apply/${society.id}`} className="event-apply-btn">
                           Apply Now <ArrowRight size={14} />
                         </Link>

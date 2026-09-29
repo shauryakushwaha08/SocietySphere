@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Clock, AlertCircle } from "lucide-react";
+import { Clock } from "lucide-react";
 import "./DeadlineCountdown.css";
 
 export default function DeadlineCountdown({ deadline, compact = false, showLabel = true }) {

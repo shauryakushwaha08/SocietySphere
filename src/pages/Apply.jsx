@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowLeft, CheckCircle2, Send, Save, Sparkles } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+import { isRecruitmentOpen } from "../utils/recruitmentUtils";
 import societies from "../data/societies";
 import {
   saveApplication,
@@ -91,6 +92,8 @@ function Apply() {
     }
   }
 
+  const recruitmentOpen = isRecruitmentOpen(society.recruitmentDeadline);
+
   if (!society) {
     return (
       <main className="page-container empty-page">
@@ -103,7 +106,7 @@ function Apply() {
     );
   }
 
-  if (!society.recruitmentOpen) {
+  if (!recruitmentOpen) {
     return (
       <main className="page-container empty-page">
         <h1>Recruitment Closed</h1>

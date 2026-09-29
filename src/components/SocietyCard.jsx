@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Users, Send, Compass, ArrowRight } from "lucide-react";
+import { ArrowUpRight, Send, Compass, ArrowRight } from "lucide-react";
 import { categoryColors, categoryBgColors, categoryCodes } from "../utils/categoryStyles";
+import { isRecruitmentOpen } from "../utils/recruitmentUtils";
 import BookmarkButton from "./BookmarkButton";
 import DeadlineCountdown from "./DeadlineCountdown";
 import "./SocietyCard.css";
@@ -8,8 +9,9 @@ import "./SocietyCard.css";
 function SocietyCard({ society, index, viewMode = "grid", match = false }) {
   const color = categoryColors[society.category] || "var(--theme)";
   const bgColor = categoryBgColors[society.category] || "rgba(61, 220, 151, 0.12)";
-  const catCode = society.categoryCode || categoryCodes[society.category] || "SOC";
-  const clubCode = society.code || society.name.slice(0, 4).toUpperCase();
+  const catCode = categoryCodes[society.category] || "SOC";
+
+  const recruitmentOpen = isRecruitmentOpen(society.recruitmentDeadline);
 
   if (viewMode === "list") {
     return (
@@ -40,8 +42,8 @@ function SocietyCard({ society, index, viewMode = "grid", match = false }) {
                 <div className="society-side-meta" style={{marginLeft : "auto"}}>
                   <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", gap: "0.25rem" }}>
                     <DeadlineCountdown deadline={society.recruitmentDeadline} compact={true} />
-                    <span className={`status-badge ${society.recruitmentOpen ? "open" : "closed"}`}>
-                      <span className="status-dot" /> {society.recruitmentOpen ? "Recruiting" : "Closed"}
+                    <span className={`status-badge ${recruitmentOpen ? "open" : "closed"}`}>
+                      <span className="status-dot" /> {recruitmentOpen ? "Recruiting" : "Closed"}
                     </span>
                   </div>
                 </div>
@@ -62,7 +64,7 @@ function SocietyCard({ society, index, viewMode = "grid", match = false }) {
           <Link to={`/society/${society.id}`} className="match-details-btn">
             <Compass size={15} /> View Society
           </Link>
-          {society.recruitmentOpen ? (
+          {recruitmentOpen ? (
             <Link to={`/apply/${society.id}`} className="match-apply-btn">
               Apply Now <ArrowRight size={15} />
             </Link>
@@ -123,8 +125,8 @@ function SocietyCard({ society, index, viewMode = "grid", match = false }) {
 
         <div className="card-deadline-hint">
           <div className="status-badge-row">
-            <span className={`status-badge ${society.recruitmentOpen ? "open" : "closed"}`}>
-              <span className="status-dot" /> {society.recruitmentOpen ? "Recruitment Open" : "Closed"}
+            <span className={`status-badge ${recruitmentOpen ? "open" : "closed"}`}>
+              <span className="status-dot" /> {recruitmentOpen ? "Recruitment Open" : "Closed"}
             </span>
           </div>
           <DeadlineCountdown deadline={society.recruitmentDeadline} compact={true} />
@@ -135,7 +137,7 @@ function SocietyCard({ society, index, viewMode = "grid", match = false }) {
         <Link to={`/society/${society.id}`} className="card-details-link">
           Explore Details <ArrowUpRight size={15} />
         </Link>
-        {society.recruitmentOpen ? (
+        {recruitmentOpen ? (
           <Link to={`/apply/${society.id}`} className="card-apply-pill">
             Apply <Send size={12} />
           </Link>

@@ -1,10 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Home, Compass, Calendar, Sparkles, Search, ArrowLeft, MapPin } from "lucide-react";
 import "./NotFound.css";
 
 export default function NotFound({ onOpenSearch }) {
-  const location = useLocation();
-
   return (
     <div className="not-found-page" id="not-found-page">
       <div className="not-found-container">

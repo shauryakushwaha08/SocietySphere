@@ -13,6 +13,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import societies from "../data/societies";
 import { campusEvents } from "../data/events";
+import { isRecruitmentOpen } from "../utils/recruitmentUtils";
 import SocietyCard from "../components/SocietyCard";
 import "./Home.css";
 
@@ -21,7 +22,7 @@ function Home() {
   const navigate = useNavigate();
 
   const totalSocieties = societies.length;
-  const recruitingSocieties = societies.filter((s) => s.recruitmentOpen);
+  const recruitingSocieties = societies.filter((s) => isRecruitmentOpen(s.recruitmentDeadline));
   const totalRoles = societies.reduce((sum, s) => sum + s.roles.length, 0);
   const upcomingEvents = campusEvents.slice(0, 3);
 

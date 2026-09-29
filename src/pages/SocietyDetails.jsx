@@ -25,6 +25,7 @@ import "./SocietyDetails.css";
 function SocietyDetails() {
   const { id } = useParams();
   const society = societies.find((s) => s.id === id);
+  const color = categoryColors[society.category] || "var(--theme)";
   const recruitmentOpen = isRecruitmentOpen(society.recruitmentDeadline);
 
   const [activeTab, setActiveTab] = useState("overview"); // 'overview' | 'roles' | 'roadmap' | 'events' | 'faqs'
@@ -42,8 +43,6 @@ function SocietyDetails() {
       </div>
     );
   }
-
-  const color = categoryColors[society.category] || "var(--theme)";
 
   const handleShare = () => {
     if (navigator.clipboard) {
@@ -80,7 +79,7 @@ function SocietyDetails() {
       <section className="society-hero-card" style={{ borderTopColor: color }}>
         <div className="hero-top-row">
           <div className="hero-details">
-            <div className="logo-chip large">
+            <div className="logo-chip large" style={{border : `1px solid ${color}`}}>
               <img src={society.logo} alt={`${society.name} logo`} />
             </div>
 

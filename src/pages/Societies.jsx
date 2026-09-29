@@ -20,36 +20,52 @@ import "./Societies.css";
 function Societies() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const activeCategory = searchParams.get("category") || "All";
-  const recruitmentFilter = searchParams.get("recruiting") === "true" ? "open" : "all";
-  const onlySaved = searchParams.get("saved") === "true";
-  const query = searchParams.get("q") || "";
-  const sortBy = searchParams.get("sort") || "default";
+  // Initialize state from URL query parameters if present
+  const categoryParam = searchParams.get("category") || "All";
+  const recruitingParam = searchParams.get("recruiting") === "true" ? "open" : "all";
+  const queryParam = searchParams.get("q") || "";
+  const savedParam = searchParams.get("saved") === "true";
 
+  const [activeCategory, setActiveCategory] = useState(categoryParam);
+  const [recruitmentFilter, setRecruitmentFilter] = useState(recruitingParam);
+  const [onlySaved, setOnlySaved] = useState(savedParam);
+  const [query, setQuery] = useState(queryParam);
+
+  const [sortBy, setSortBy] = useState("default");
   const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'list'
   const [bookmarkedIds, setBookmarkedIds] = useState(getBookmarks);
   const [isFiltering, setIsFiltering] = useState(false);
 
-  const updateParam = (key, value) => {
-    setSearchParams(
-      (prev) => {
-        const next = new URLSearchParams(prev);
-        if (value) {
-          next.set(key, value);
-        } else {
-          next.delete(key);
-        }
-        return next;
-      },
-      { replace: true }
-    );
-  };
+  // 🔑 FIX: Sync URL parameters back to state when the URL changes externally (e.g., via Link clicks)
+  useEffect(() => {
+    const cat = searchParams.get("category") || "All";
+    const rec = searchParams.get("recruiting") === "true" ? "open" : "all";
+    const q = searchParams.get("q") || "";
+    const saved = searchParams.get("saved") === "true";
 
+    if (cat !== activeCategory || rec !== recruitmentFilter || saved !== onlySaved) {
+      setIsFiltering(true);
+      if (cat !== activeCategory) setActiveCategory(cat);
+      if (rec !== recruitmentFilter) setRecruitmentFilter(rec);
+      if (saved !== onlySaved) setOnlySaved(saved);
+      
+      const timer = setTimeout(() => setIsFiltering(false), 200);
+      return () => clearTimeout(timer);
+    }
+
+    if (q !== query) setQuery(q);
+  }, [searchParams]);
+  
   const handleCategorySelect = (cat) => {
     if (cat === activeCategory) return;
     setIsFiltering(true);
-    updateParam("category", cat !== "All" ? cat : null);
+    setActiveCategory(cat);
     setTimeout(() => setIsFiltering(false), 200);
+  };
+
+  const handleSetOnlySaved = (valueOrFn) => {
+    const nextVal = typeof valueOrFn === "function" ? valueOrFn(onlySaved) : valueOrFn;
+    setOnlySaved(nextVal);
   };
 
   // Sync bookmark updates
@@ -61,6 +77,26 @@ function Societies() {
     return () => window.removeEventListener("societysphere:bookmarks-updated", handleSync);
   }, []);
 
+  // Sync state changes to URL search params
+  useEffect(() => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (activeCategory !== "All") next.set("category", activeCategory);
+      else next.delete("category");
+
+      if (recruitmentFilter === "open") next.set("recruiting", "true");
+      else next.delete("recruiting");
+
+      if (query.trim()) next.set("q", query.trim());
+      else next.delete("q");
+
+      if (onlySaved) next.set("saved", "true");
+      else next.delete("saved");
+
+      return next;
+    }, { replace: true });
+  }, [activeCategory, recruitmentFilter, query, onlySaved, setSearchParams]);
+
   const categories = ["All", ...new Set(societies.map((s) => s.category))];
 
   // Filtering logic
@@ -71,7 +107,9 @@ function Societies() {
         activeCategory === "All" || society.category === activeCategory;
 
       const matchesRecruitment =
-        recruitmentFilter === "all" || (recruitmentFilter === "open" && recruitmentOpen);
+        recruitmentFilter === "all" ||
+        (recruitmentFilter === "open" && recruitmentOpen) ||
+        (recruitmentFilter === "closed" && !recruitmentOpen);
 
       const matchesSaved = !onlySaved || bookmarkedIds.includes(society.id);
 
@@ -89,7 +127,11 @@ function Societies() {
     });
 
   const clearFilters = () => {
-    setSearchParams(new URLSearchParams(), { replace: true });
+    setActiveCategory("All");
+    setRecruitmentFilter("all");
+    setOnlySaved(false);
+    setQuery("");
+    setSortBy("default");
   };
 
   const hasActiveFilters =
@@ -199,7 +241,7 @@ function Societies() {
             <button
               type="button"
               className={`filter-pill ${onlySaved ? "active" : ""}`}
-              onClick={() => setOnlySaved((prev) => !prev)}
+              onClick={() => handleSetOnlySaved((prev) => !prev)}
             >
               <Bookmark size={13} fill={onlySaved ? "currentColor" : "none"} />
               <span>Saved Societies ({bookmarkedIds.length})</span>
@@ -246,7 +288,7 @@ function Societies() {
           {onlySaved && (
             <span className="filter-tag">
               Bookmarked Only{" "}
-              <button type="button" onClick={() => setOnlySaved(false)}>
+              <button type="button" onClick={() => handleSetOnlySaved(false)}>
                 ×
               </button>
             </span>

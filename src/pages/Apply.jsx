@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowLeft, CheckCircle2, Send, Save, Sparkles } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+import { categoryColors } from "../utils/categoryStyles";
 import { isRecruitmentOpen } from "../utils/recruitmentUtils";
 import societies from "../data/societies";
 import {
@@ -14,7 +15,8 @@ import "./Apply.css";
 function Apply() {
   const { id } = useParams();
   const society = societies.find((s) => s.id === id);
-
+  const color = categoryColors[society.category] || "var(--theme)";
+  
   const [formData, setFormData] = useState(() => {
     const defaultData = {
       name: "",
@@ -150,7 +152,7 @@ function Apply() {
       <div className="apply-layout">
         {/* Left Side Info Card */}
         <aside className="apply-intro">
-          <div className="logo-chip large">
+        <div className="logo-chip large" style={{border : `1px solid ${color}`}}>
             <img src={society.logo} alt={`${society.name} logo`} />
           </div>
           <div className="section-kicker">APPLY TO JOIN</div>

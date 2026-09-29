@@ -575,7 +575,7 @@
 }
 
 .home-event-card.deadline-style {
-  border-left: 3px solid var(--danger);
+  border-left: 3px solid var(--danger) !important;
 }
 
 .home-event-date-badge {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {
@@ -13,12 +13,20 @@ import {
   Compass,
   FileText,
   Bookmark,
+  LogIn,
+  LogOut,
+  User,
+  ChevronDown,
 } from "lucide-react";
+import { useAuth } from "../context/useAuth";
 import { getApplications, getBookmarks } from "../utils/storage";
 import "./Navbar.css";
 
 function Navbar({ theme, toggleTheme, onOpenSearch }) {
+  const { user, isAuthenticated, openAuthModal, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const [appsCount, setAppsCount] = useState(() => getApplications().length);
   const [bookmarksCount, setBookmarksCount] = useState(() => getBookmarks().length);
   const location = useLocation();
@@ -27,7 +35,21 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
   if (prevPath !== location.pathname) {
     setPrevPath(location.pathname);
     setMobileMenuOpen(false);
+    setUserDropdownOpen(false);
   }
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setUserDropdownOpen(false);
+      }
+    }
+    if (userDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [userDropdownOpen]);
 
   // Prevent background scroll when mobile drawer is open and handle Escape key
   useEffect(() => {
@@ -88,7 +110,7 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
             <Calendar size={15} /> Calendar
           </NavLink>
           <NavLink to="/find-your-fit" className={({ isActive }) => (isActive ? "active" : "")}>
-            <Sparkles size={15} /> Match Quiz
+            <Sparkles size={15} /> Quiz
           </NavLink>
           <NavLink to="/applications" className={({ isActive }) => `apps-link ${isActive ? "active" : ""}`}>
             <FileText size={15} /> Applications
@@ -105,11 +127,10 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
             className="search-trigger-btn"
             onClick={onOpenSearch}
             aria-label="Search societies and events"
-            title="Press Ctrl+K or / to search"
+            title="search"
           >
             <Search size={16} />
             <span className="search-trigger-text">Search</span>
-            <kbd className="search-shortcut">Ctrl+K</kbd>
           </button>
 
           {/* Bookmarks quick link */}
@@ -123,6 +144,88 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
             <Bookmark size={16} fill={bookmarksCount > 0 ? "currentColor" : "none"} />
             {bookmarksCount > 0 && <span className="nav-counter-badge count-pill">{bookmarksCount}</span>}
           </Link>
+
+          {/* User Auth Pill / Dropdown */}
+          {isAuthenticated && user ? (
+            <div className="nav-user-dropdown-wrap" ref={dropdownRef}>
+              <button
+                type="button"
+                className={`nav-user-pill-btn ${userDropdownOpen ? "active" : ""}`}
+                onClick={() => setUserDropdownOpen((prev) => !prev)}
+                aria-expanded={userDropdownOpen}
+                aria-label="Open student profile menu"
+                title={`${user.name} (${user.rollNo || "NSUT Student"})`}
+              >
+                <div className="nav-user-avatar" aria-hidden="true">
+                  {user.avatar || user.name.slice(0, 2).toUpperCase()}
+                </div>
+                <span className="nav-user-name">{user.name.split(" ")[0]}</span>
+                <ChevronDown size={14} className="nav-user-chevron" />
+              </button>
+
+              {userDropdownOpen && (
+                <div className="nav-user-dropdown-menu" role="menu">
+                  <div className="nav-dropdown-header">
+                    <div className="nav-dropdown-name">{user.name}</div>
+                    <div className="nav-dropdown-roll">{user.rollNo || user.branch}</div>
+                  </div>
+
+                  <Link
+                    to="/profile"
+                    className="nav-dropdown-item"
+                    role="menuitem"
+                    onClick={() => setUserDropdownOpen(false)}
+                  >
+                    <User size={15} />
+                    <span>My Profile</span>
+                  </Link>
+
+                  <Link
+                    to="/profile?tab=applications"
+                    className="nav-dropdown-item"
+                    role="menuitem"
+                    onClick={() => setUserDropdownOpen(false)}
+                  >
+                    <FileText size={15} />
+                    <span>Track Applications</span>
+                  </Link>
+
+                  <Link
+                    to="/profile?tab=bookmarks"
+                    className="nav-dropdown-item"
+                    role="menuitem"
+                    onClick={() => setUserDropdownOpen(false)}
+                  >
+                    <Bookmark size={15} />
+                    <span>Saved Societies</span>
+                  </Link>
+
+                  <button
+                    type="button"
+                    className="nav-dropdown-item danger"
+                    role="menuitem"
+                    onClick={() => {
+                      setUserDropdownOpen(false);
+                      logout();
+                    }}
+                  >
+                    <LogOut size={15} />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="nav-auth-btn"
+              onClick={() => openAuthModal("login")}
+              aria-label="Sign in to your student profile"
+            >
+              <LogIn size={15} />
+              <span>Sign In</span>
+            </button>
+          )}
 
           {/* Theme Toggle */}
           <button
@@ -201,6 +304,59 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
                   <span>Search</span>
                 </button>
               </div>
+
+              {/* Mobile Auth Card */}
+              {isAuthenticated && user ? (
+                <div className="mobile-drawer-auth-card">
+                  <div className="mobile-auth-user-info">
+                    <div className="mobile-auth-avatar">
+                      {user.avatar || user.name.slice(0, 2).toUpperCase()}
+                    </div>
+                    <div className="mobile-auth-names">
+                      <span className="mobile-auth-name">{user.name}</span>
+                      <span className="mobile-auth-sub">{user.rollNo || user.branch}</span>
+                    </div>
+                  </div>
+                  <div className="mobile-drawer-auth-actions">
+                    <Link
+                      to="/profile"
+                      className="mobile-auth-btn-pill primary"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <User size={14} />
+                      <span>My Profile</span>
+                    </Link>
+                    <button
+                      type="button"
+                      className="mobile-auth-btn-pill"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        logout();
+                      }}
+                    >
+                      <LogOut size={14} />
+                      <span>Log Out</span>
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="mobile-drawer-auth-card">
+                  <span style={{ fontSize: "0.85rem", color: "var(--text-soft)" }}>
+                    Sign in to track applications and autofill forms.
+                  </span>
+                  <button
+                    type="button"
+                    className="mobile-auth-btn-pill primary"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      openAuthModal("login");
+                    }}
+                  >
+                    <LogIn size={14} />
+                    <span>Sign In to Student Account</span>
+                  </button>
+                </div>
+              )}
 
               <div className="mobile-links-list">
                 <NavLink to="/societies" className={({ isActive }) => `mobile-nav-item ${isActive ? "active" : ""}`}>

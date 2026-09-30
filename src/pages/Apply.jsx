@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { ArrowLeft, CheckCircle2, Send, Save, Sparkles } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Send, Save, Sparkles, ShieldCheck, RefreshCw, FileText } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { categoryColors } from "../utils/categoryStyles";
 import { isRecruitmentOpen } from "../utils/recruitmentUtils";
 import societies from "../data/societies";
+import { useAuth } from "../context/useAuth";
 import {
   saveApplication,
   getDraft,
@@ -14,17 +15,18 @@ import "./Apply.css";
 
 function Apply() {
   const { id } = useParams();
+  const { user, isAuthenticated, openAuthModal } = useAuth();
   const society = societies.find((s) => s.id === id);
   const color = categoryColors[society.category] || "var(--theme)";
-  
+
   const [formData, setFormData] = useState(() => {
     const defaultData = {
-      name: "",
-      year: "",
-      branch: "",
+      name: user?.name || "",
+      year: user?.year || "",
+      branch: user?.branch || "",
       role: "",
-      phone: "",
-      portfolio: "",
+      phone: user?.phone || "",
+      portfolio: user?.portfolio || "",
       why: "",
     };
     if (society) {
@@ -35,11 +37,42 @@ function Apply() {
     }
     return defaultData;
   });
+
+  const handleAutofillFromProfile = () => {
+    if (!user) return;
+
+    const nextForm = {
+      ...formData,
+      name: user.name || formData.name,
+      branch: user.branch || formData.branch,
+      year: user.year || formData.year,
+      phone: user.phone || formData.phone,
+      portfolio: user.portfolio || formData.portfolio,
+    };
+
+    setFormData(nextForm);
+    if (society) {
+      saveDraft(society.id, nextForm);
+    }
+  };
+
+  const handleOpenAuth = () => {
+    openAuthModal("login", (loggedUser) => {
+      if (loggedUser) {
+        setFormData((prev) => ({
+          ...prev,
+          name: prev.name || loggedUser.name || "",
+          branch: prev.branch || loggedUser.branch || "",
+          year: prev.year || loggedUser.year || "",
+          phone: prev.phone || loggedUser.phone || "",
+          portfolio: prev.portfolio || loggedUser.portfolio || "",
+        }));
+      }
+    });
+  };
+
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const [draftNotice, setDraftNotice] = useState(() => {
-    return society ? Boolean(getDraft(society.id)) : false;
-  });
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -88,6 +121,9 @@ function Apply() {
         ...formData,
         societyId: society.id,
         societyName: society.name,
+        applicantId: user?.id || null,
+        rollNo: user?.rollNo || "",
+        email: user?.email || "",
       });
       clearDraft(society.id);
       setSubmitted(true);
@@ -132,8 +168,11 @@ function Apply() {
           Your application for <strong>{formData.role}</strong> at <strong>{society.name}</strong> has been saved. The society team will reach out regarding interviews and tasks.
         </p>
         <div className="success-actions">
-          <Link to="/applications" className="submit-app-btn">
-            View My Applications
+          <Link to="/profile?tab=applications" className="submit-app-btn">
+            View in Student Profile
+          </Link>
+          <Link to="/applications" className="secondary-btn">
+            All Applications
           </Link>
           <Link to="/societies" className="secondary-btn">
             Explore More Societies
@@ -175,16 +214,42 @@ function Apply() {
 
         {/* Form Container */}
         <div className="apply-form-wrapper">
-          {draftNotice && (
-            <div className="draft-alert">
-              <span>Restored your saved progress from this device.</span>
-              <button
-                type="button"
-                className="dismiss-draft-btn"
-                onClick={() => setDraftNotice(false)}
-              >
-                Dismiss
-              </button>
+          {isAuthenticated && user ? (
+            <div style={{marginBottom : "1.25rem"}}>
+              <div className="apply-auth-banner verified">
+                <ShieldCheck size={18} />
+                <div className="apply-auth-message">
+                  <span>
+                    Applying as <strong>{user.name}</strong> ({user.rollNo || user.branch})
+                  </span>
+                </div>
+              </div>
+              <div className="apply-auth-banner verified">
+                <FileText size={18}/>
+                <span>
+                  Details Pre-filled from your profile.
+                </span>
+                <button
+                  type="button"
+                  onClick={handleAutofillFromProfile}
+                  title="Reload details from profile"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", textDecoration: "none", fontSize: "0.8125rem", color: "var(--theme)", minHeight: "fit-content", lineHeight: "1",  marginLeft : "auto"}}
+                >
+                  <RefreshCw size={12} />
+                  <span>Sync with Profile</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="apply-auth-banner guest">
+              <Sparkles size={18} />
+              <span>
+                Have an NSUT student account?{" "}
+                <button type="button" onClick={handleOpenAuth}>
+                  Sign in to autofill
+                </button>{" "}
+                your details and track your application status.
+              </span>
             </div>
           )}
 
@@ -240,7 +305,7 @@ function Apply() {
                 <input
                   id="branch"
                   name="branch"
-                  placeholder="e.g. Computer Science (CSAI / COE)"
+                  placeholder="e.g. Computer Science (CSAI / CSE)"
                   value={formData.branch}
                   onChange={handleChange}
                   aria-invalid={Boolean(errors.branch)}

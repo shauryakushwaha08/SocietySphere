@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ArrowUpRight,
   FileText,
@@ -6,21 +6,35 @@ import {
   Calendar,
   Sparkles,
   Compass,
+  User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { getApplications } from "../utils/storage";
+import { getApplications, deleteApplication } from "../utils/storage";
+import { useAuth } from "../context/useAuth";
 import societies from "../data/societies";
 import { categoryColors } from "../utils/categoryStyles";
 import "./Applications.css";
 
 function Applications() {
+  const { isAuthenticated } = useAuth();
   const [applications, setApplications] = useState(getApplications);
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
+  useEffect(() => {
+    const handleUpdate = () => setApplications(getApplications());
+    window.addEventListener("storage", handleUpdate);
+    return () => window.removeEventListener("storage", handleUpdate);
+  }, []);
+
   const handleDelete = (indexToDelete) => {
-    const updated = applications.filter((_, idx) => idx !== indexToDelete);
-    setApplications(updated);
-    localStorage.setItem("applications", JSON.stringify(updated));
+    const target = applications[indexToDelete];
+    if (target?.id) {
+      const updated = deleteApplication(target.id);
+      setApplications(updated);
+    } else {
+      const updated = applications.filter((_, idx) => idx !== indexToDelete);
+      setApplications(updated);
+    }
     setConfirmDeleteId(null);
   };
 
@@ -37,9 +51,21 @@ function Applications() {
           </p>
         </div>
         {applications.length > 0 && (
-          <span className="application-count">
-            {applications.length} {applications.length === 1 ? "application" : "applications"} submitted
-          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
+            <span className="application-count">
+              {applications.length} {applications.length === 1 ? "application" : "applications"} submitted
+            </span>
+            {isAuthenticated && (
+              <Link
+                to="/profile?tab=applications"
+                className="secondary-btn"
+                style={{ padding: "0.35rem 0.75rem", fontSize: "0.8125rem", borderRadius: "8px", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
+              >
+                <User size={13} />
+                <span>Student Profile</span>
+              </Link>
+            )}
+          </div>
         )}
       </div>
 

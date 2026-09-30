@@ -313,7 +313,7 @@ function Societies() {
           className={viewMode === "grid" ? "society-grid-view" : "society-list-view"}
           aria-label="Loading directory"
         >
-          {[1, 2, 3, 4, 5, 6].map((n) => (
+          {[1, 2, 3].map((n) => (
             <SocietyCardSkeleton key={n} viewMode={viewMode} />
           ))}
         </div>

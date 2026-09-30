@@ -408,3 +408,62 @@
     font-size: 1.6rem;
   }
 }
+
+.apply-auth-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+.apply-auth-banner.verified {
+  background: var(--theme-subtle);
+  border: 1px solid var(--theme-border);
+  color: var(--text);
+}
+
+.apply-auth-banner.verified svg {
+  color: var(--theme);
+  flex-shrink: 0;
+}
+
+.apply-auth-message{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
+
+.apply-sync-message{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.apply-auth-banner.guest {
+  background: var(--surface-hover);
+  border: 1px dashed var(--border);
+  color: var(--text-soft);
+}
+
+.apply-auth-banner.guest svg {
+  color: var(--important);
+  flex-shrink: 0;
+}
+
+.apply-auth-banner button {
+  background: transparent;
+  border: none;
+  color: var(--theme);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+}
+

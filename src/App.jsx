@@ -9,6 +9,9 @@ import Applications from "./pages/Applications";
 import FindYourFit from "./pages/FindYourFit";
 import Events from "./pages/Events";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
+import AuthModal from "./components/AuthModal";
+import { AuthProvider } from "./context/AuthProvider";
 import QuickSearchModal from "./components/QuickSearchModal";
 import ScrollToTop from "./utils/ScrollToTop";
 import Footer from "./components/Footer";
@@ -42,7 +45,7 @@ function App() {
   }
 
   return (
-    <>
+    <AuthProvider>
       <ScrollToTop />
       <Navbar
         theme={theme}
@@ -56,6 +59,7 @@ function App() {
           <Route path="/society/:id" element={<SocietyDetails />} />
           <Route path="/apply/:id" element={<Apply />} />
           <Route path="/applications" element={<Applications />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/find-your-fit" element={<FindYourFit />} />
           <Route path="/FindYourFit" element={<FindYourFit />} />
           <Route path="/events" element={<Events />} />
@@ -70,7 +74,8 @@ function App() {
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
       />
-    </>
+      <AuthModal />
+    </AuthProvider>
   );
 }
 

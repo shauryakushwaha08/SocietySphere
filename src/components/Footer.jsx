@@ -20,6 +20,7 @@ import {
   Car,
   Heart,
   ChevronDown,
+  User,
 } from "lucide-react";
 import "./Footer.css";
 
@@ -142,6 +143,12 @@ export default function Footer({ onOpenSearch }) {
             </button>
             <div className="footer-col-content" id="footer-nav-content">
               <ul className="footer-links-list">
+                <li>
+                  <Link to="/profile">
+                    <User size={14} />
+                    <span>Student Profile &amp; Portal</span>
+                  </Link>
+                </li>
                 <li>
                   <Link to="/societies">
                     <Compass size={14} />

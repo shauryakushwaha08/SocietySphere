@@ -204,7 +204,11 @@ export default function Profile() {
             <div className="profile-avatar-group">
               <div className="profile-top">
                 <div className="profile-avatar-circle" aria-hidden="true">
-                  {user.avatar || user.name.slice(0, 2).toUpperCase()}
+                <img
+                  src={`https://api.dicebear.com/10.x/glyphs/svg?glyphColor=ff2e88,00e5ff,ffe600,7cff00,ff6a00,b400ff&seed=${user.name+user.rollNo}`}
+                  alt="avatar" 
+                  style={{borderRadius : "10px"}}/>
+                  {/* {user.avatar || user.name.slice(0, 2).toUpperCase()} */}
                 </div>
                 <div className="profile-hero-actions">
                   <button

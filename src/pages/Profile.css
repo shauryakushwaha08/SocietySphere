@@ -117,7 +117,8 @@
   width: 80px;
   height: 80px;
   border-radius: 20px;
-  background: linear-gradient(135deg, var(--theme), #0284c7);
+  /* background: linear-gradient(135deg, var(--theme), #0284c7); */
+  background: black;
   color: #0a0a0c;
   font-family: var(--font-heading, "Zilla Slab", serif);
   font-size: 2rem;

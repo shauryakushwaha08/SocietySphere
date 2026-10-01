@@ -157,7 +157,11 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
                 title={`${user.name} (${user.rollNo || "NSUT Student"})`}
               >
                 <div className="nav-user-avatar" aria-hidden="true">
-                  {user.avatar || user.name.slice(0, 2).toUpperCase()}
+                <img
+                  src={`https://api.dicebear.com/10.x/glyphs/svg?glyphColor=ff2e88,00e5ff,ffe600,7cff00,ff6a00,b400ff&seed=${user.name+user.rollNo}`}
+                  alt="avatar" 
+                  style={{borderRadius : "50%"}}/>
+                  {/* {user.avatar || user.name.slice(0, 2).toUpperCase()} */}
                 </div>
                 <span className="nav-user-name">{user.name.split(" ")[0]}</span>
                 <ChevronDown size={14} className="nav-user-chevron" />
@@ -329,7 +333,11 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
                 <div className="mobile-drawer-auth-card">
                   <div className="mobile-auth-user-info">
                     <div className="mobile-auth-avatar">
-                      {user.avatar || user.name.slice(0, 2).toUpperCase()}
+                    <img
+                      src={`https://api.dicebear.com/10.x/glyphs/svg?glyphColor=ff2e88,00e5ff,ffe600,7cff00,ff6a00,b400ff&seed=${user.name+user.rollNo}`}
+                      alt="avatar" 
+                      style={{borderRadius : "10px"}}/>
+                      {/* {user.avatar || user.name.slice(0, 2).toUpperCase()} */}
                     </div>
                     <div className="mobile-auth-names">
                       <span className="mobile-auth-name">{user.name}</span>

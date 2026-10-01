@@ -2,15 +2,20 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 export default function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
+    if (pathname === "/profile" && search.includes("tab=")) {
+      return;
+    }
+
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: "smooth",
     });
-  }, [pathname]);
+  }, [pathname, search]);
 
   return null;
 }
+

@@ -20,13 +20,12 @@ import { categoryColors } from "../utils/categoryStyles";
 import { isRecruitmentOpen } from "../utils/recruitmentUtils";
 import BookmarkButton from "../components/BookmarkButton";
 import DeadlineCountdown from "../components/DeadlineCountdown";
+import NotFound from "./NotFound";
 import "./SocietyDetails.css";
 
 function SocietyDetails() {
   const { id } = useParams();
   const society = societies.find((s) => s.id === id);
-  const color = categoryColors[society.category] || "var(--theme)";
-  const recruitmentOpen = isRecruitmentOpen(society.recruitmentDeadline);
 
   const [activeTab, setActiveTab] = useState("overview"); // 'overview' | 'roles' | 'roadmap' | 'events' | 'faqs'
   const [copiedToast, setCopiedToast] = useState(false);
@@ -34,15 +33,12 @@ function SocietyDetails() {
 
   if (!society) {
     return (
-      <div className="page-container empty-page">
-        <h1>Society not found</h1>
-        <p>The society you are looking for does not exist or has been relocated.</p>
-        <Link to="/societies" className="back-to-soc-link">
-          <ArrowLeft size={16} /> Back to all societies
-        </Link>
-      </div>
+      <NotFound onOpenSearch={() => setIsSearchOpen(true)} />
     );
   }
+
+  const color = categoryColors[society.category] || "var(--theme)";
+  const recruitmentOpen = isRecruitmentOpen(society.recruitmentDeadline);
 
   const handleShare = () => {
     if (navigator.clipboard) {

@@ -3,6 +3,7 @@ import { ArrowLeft, CheckCircle2, Send, Save, Sparkles, ShieldCheck, RefreshCw, 
 import { Link, useParams } from "react-router-dom";
 import { categoryColors } from "../utils/categoryStyles";
 import { isRecruitmentOpen } from "../utils/recruitmentUtils";
+import NotFound from "./NotFound"
 import societies from "../data/societies";
 import { useAuth } from "../context/useAuth";
 import {
@@ -17,7 +18,6 @@ function Apply() {
   const { id } = useParams();
   const { user, isAuthenticated, openAuthModal } = useAuth();
   const society = societies.find((s) => s.id === id);
-  const color = categoryColors[society.category] || "var(--theme)";
 
   const [formData, setFormData] = useState(() => {
     const defaultData = {
@@ -130,19 +130,14 @@ function Apply() {
     }
   }
 
-  const recruitmentOpen = isRecruitmentOpen(society.recruitmentDeadline);
-
   if (!society) {
     return (
-      <main className="page-container empty-page">
-        <h1>Society not found</h1>
-        <p>The society you are trying to apply for does not exist.</p>
-        <Link to="/societies" className="secondary-btn">
-          Back to societies
-        </Link>
-      </main>
+      <NotFound onOpenSearch={() => setIsSearchOpen(true)} />
     );
   }
+
+  const color = categoryColors[society.category] || "var(--theme)";
+  const recruitmentOpen = isRecruitmentOpen(society.recruitmentDeadline);
 
   if (!recruitmentOpen) {
     return (

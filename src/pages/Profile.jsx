@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   GraduationCap,
@@ -29,17 +29,56 @@ import { isRecruitmentOpen } from "../utils/recruitmentUtils"
 import { NSUT_BRANCHES, ACADEMIC_YEARS } from "../utils/auth";
 import "./Profile.css";
 
+const VALID_TABS = ["applications", "bookmarks", "details"];
+
 export default function Profile() {
   const { user, isAuthenticated, logout, updateUser, openAuthModal } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialTab = searchParams.get("tab") || "applications";
-  const [activeTab, setActiveTab] = useState(initialTab);
+  const tabsSectionRef = useRef(null);
 
-  // Synchronize activeTab with URL search params
-  const handleTabChange = (newTab) => {
-    setActiveTab(newTab);
-    setSearchParams({ tab: newTab });
+  const tabParam = searchParams.get("tab");
+  const activeTab = VALID_TABS.includes(tabParam) ? tabParam : "applications";
+
+  const scrollToTabs = () => {
+    if (tabsSectionRef.current) {
+      const yOffset = -80;
+      const y = tabsSectionRef.current.getBoundingClientRect().top + window.scrollY + yOffset;
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+    }
   };
+
+  // Synchronize activeTab with URL search params and optionally scroll down
+  const handleTabChange = (newTab, shouldScroll = false) => {
+    setSearchParams({ tab: newTab });
+    if (shouldScroll) {
+      setTimeout(scrollToTabs, 50);
+    }
+  };
+
+  // Scroll to tabs section if navigated to with a specific tab parameter
+  useEffect(() => {
+    if (tabParam && VALID_TABS.includes(tabParam)) {
+      const timer = setTimeout(() => {
+        scrollToTabs();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [tabParam]);
+
+  // Listen for direct navigation and scroll events from Navbar dropdown
+  useEffect(() => {
+    function handleProfileNav(e) {
+      const targetTab = e.detail?.tab;
+      if (targetTab && VALID_TABS.includes(targetTab)) {
+        setSearchParams({ tab: targetTab });
+        setTimeout(() => {
+          scrollToTabs();
+        }, 50);
+      }
+    }
+    window.addEventListener("societysphere:navigate-profile-tab", handleProfileNav);
+    return () => window.removeEventListener("societysphere:navigate-profile-tab", handleProfileNav);
+  }, [setSearchParams]);
 
   // State for applications and bookmarks
   const [applications, setApplications] = useState(() => getApplications());
@@ -171,7 +210,7 @@ export default function Profile() {
                   <button
                     type="button"
                     className="profile-action-btn secondary"
-                    onClick={() => handleTabChange("details")}
+                    onClick={() => handleTabChange("details", true)}
                     title="Edit student profile"
                   >
                     <Edit3 size={15} />
@@ -252,7 +291,14 @@ export default function Profile() {
 
         {/* Quick Stats Grid */}
         <section className="profile-stats-grid" aria-label="Recruitment Summary">
-          <div className="profile-stat-box">
+          <div
+            className="profile-stat-box clickable"
+            role="button"
+            tabIndex={0}
+            onClick={() => handleTabChange("applications", true)}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleTabChange("applications", true)}
+            title="Click to view applications pipeline"
+          >
             <div
               className="profile-stat-icon"
               style={{ background: "rgba(56, 189, 248, 0.14)", color: "#38bdf8" }}
@@ -265,7 +311,14 @@ export default function Profile() {
             </div>
           </div>
 
-          <div className="profile-stat-box">
+          <div
+            className="profile-stat-box clickable"
+            role="button"
+            tabIndex={0}
+            onClick={() => handleTabChange("applications", true)}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleTabChange("applications", true)}
+            title="Click to view in-review applications"
+          >
             <div
               className="profile-stat-icon"
               style={{ background: "rgba(232, 179, 57, 0.15)", color: "var(--important)" }}
@@ -278,7 +331,14 @@ export default function Profile() {
             </div>
           </div>
 
-          <div className="profile-stat-box">
+          <div
+            className="profile-stat-box clickable"
+            role="button"
+            tabIndex={0}
+            onClick={() => handleTabChange("bookmarks", true)}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleTabChange("bookmarks", true)}
+            title="Click to view saved clubs and societies"
+          >
             <div
               className="profile-stat-icon"
               style={{ background: "rgba(61, 220, 151, 0.14)", color: "var(--theme)" }}
@@ -287,13 +347,18 @@ export default function Profile() {
             </div>
             <div className="profile-stat-info">
               <span className="profile-stat-val">{bookmarks.length}</span>
-              <span className="profile-stat-label">Saved Societies</span>
+              <span className="profile-stat-label">Saved Clubs &amp; Societies</span>
             </div>
           </div>
         </section>
 
         {/* Tabs Bar */}
-        <nav className="profile-tabs-bar" role="tablist">
+        <nav
+          ref={tabsSectionRef}
+          id="profile-tabs-section"
+          className="profile-tabs-bar"
+          role="tablist"
+        >
           <button
             type="button"
             className={`profile-tab-item ${activeTab === "applications" ? "active" : ""}`}

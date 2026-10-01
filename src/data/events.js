@@ -1,7 +1,7 @@
 export const campusEvents = [
   {
     id: "evt-1",
-    title: "Shunya",
+    title: "Shunya - GDG's Flagship Tech Fest",
     societyId: "gdg",
     societyName: "GDG NSUT",
     category: "Tech",
@@ -127,20 +127,6 @@ export const campusEvents = [
   },
   {
     id: "evt-10",
-    title: "NSS NSUT Orientation & Induction Meet",
-    societyId: "nss",
-    societyName: "NSS NSUT",
-    category: "Social",
-    type: "Orientation",
-    date: "2026-09-29",
-    time: "4:00 PM - 5:30 PM",
-    venue: "Mini Audi 2",
-    isOnline: false,
-    description: "Welcome session for freshmen interested in educational outreach, environmental awareness campaigns, and rural literacy projects.",
-    tags: ["NSS", "SocialWork", "Community", "Freshers"],
-  },
-  {
-    id: "evt-11",
     title: "TDR Autonomous Drone Flight Showcase",
     societyId: "tdr",
     societyName: "TDR",

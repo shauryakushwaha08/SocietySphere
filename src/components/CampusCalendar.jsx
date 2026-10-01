@@ -39,8 +39,11 @@ export default function CampusCalendar({
   events = [],
   onToast = () => {},
 }) {
-  const [currentDate, setCurrentDate] = useState(new Date(2026, 8, 15));
-  const [selectedDateStr, setSelectedDateStr] = useState("2026-09-25");
+  const [currentDate, setCurrentDate] = useState(() => new Date());
+  const [selectedDateStr, setSelectedDateStr] = useState(() => {
+    const now = new Date();
+    return formatDateKey(now.getFullYear(), now.getMonth() + 1, now.getDate());
+  });
   const [activeFilter, setActiveFilter] = useState("all"); // 'all' | 'deadlines' | 'events' | 'saved'
   const [activeCategory, setActiveCategory] = useState("All");
   const [savedIds, setSavedIds] = useState(getInterestedEvents);
@@ -98,9 +101,9 @@ export default function CampusCalendar({
   };
 
   const handleToday = () => {
-    const today = new Date(2026, 8, 15);
+    const today = new Date();
     setCurrentDate(today);
-    handleSelectDate("2026-09-15");
+    handleSelectDate(formatDateKey(today.getFullYear(), today.getMonth() + 1, today.getDate()));
   };
 
   const handleSelectDate = (dateStr) => {
@@ -243,7 +246,12 @@ export default function CampusCalendar({
     return { count, deadlines, saved };
   }, [events, year, month, savedIds]);
 
-  const isToday = (dateStr) => dateStr === "2026-09-15";
+  const todayKey = useMemo(() => {
+    const now = new Date();
+    return formatDateKey(now.getFullYear(), now.getMonth() + 1, now.getDate());
+  }, []);
+
+  const isToday = (dateStr) => dateStr === todayKey;
 
   return (
     <div className="campus-calendar-root" id="campus-calendar">
@@ -278,7 +286,7 @@ export default function CampusCalendar({
             type="button"
             className="calendar-today-btn"
             onClick={handleToday}
-            title="Jump to Today (Sep 15, 2026)"
+            title="Jump to Today"
           >
             Today
           </button>

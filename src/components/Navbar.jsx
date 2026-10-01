@@ -174,7 +174,12 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
                     to="/profile"
                     className="nav-dropdown-item"
                     role="menuitem"
-                    onClick={() => setUserDropdownOpen(false)}
+                    onClick={() => {
+                      setUserDropdownOpen(false);
+                      if (location.pathname === "/profile") {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }
+                    }}
                   >
                     <User size={15} />
                     <span>My Profile</span>
@@ -184,7 +189,14 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
                     to="/profile?tab=applications"
                     className="nav-dropdown-item"
                     role="menuitem"
-                    onClick={() => setUserDropdownOpen(false)}
+                    onClick={() => {
+                      setUserDropdownOpen(false);
+                      window.dispatchEvent(
+                        new CustomEvent("societysphere:navigate-profile-tab", {
+                          detail: { tab: "applications" },
+                        })
+                      );
+                    }}
                   >
                     <FileText size={15} />
                     <span>Track Applications</span>
@@ -194,10 +206,17 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
                     to="/profile?tab=bookmarks"
                     className="nav-dropdown-item"
                     role="menuitem"
-                    onClick={() => setUserDropdownOpen(false)}
+                    onClick={() => {
+                      setUserDropdownOpen(false);
+                      window.dispatchEvent(
+                        new CustomEvent("societysphere:navigate-profile-tab", {
+                          detail: { tab: "bookmarks" },
+                        })
+                      );
+                    }}
                   >
                     <Bookmark size={15} />
-                    <span>Saved Societies</span>
+                    <span>Saved Clubs &amp; Societies</span>
                   </Link>
 
                   <button

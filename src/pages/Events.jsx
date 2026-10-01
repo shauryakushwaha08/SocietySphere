@@ -314,7 +314,7 @@ export default function Events({ initialView }) {
 
                       <div className="event-tags-row">
                         {event.tags.map((t) => (
-                          <span key={t} className="event-tag">#{t}</span>
+                          <span key={t} className="event-tag">{t}</span>
                         ))}
                       </div>
                     </div>

@@ -66,7 +66,7 @@ function Home() {
 
         <div className="hero-quick-chips">
           <span className="quick-label">Jump to:</span>
-          <Link to="/societies?category=Tech" className="hero-chip tech">
+          <Link to="/societies?category=Technical" className="hero-chip tech">
             Tech &amp; Coding ({societies.filter((s) => s.category === "Tech").length})
           </Link>
           <Link to="/societies?category=Literary" className="hero-chip literary">

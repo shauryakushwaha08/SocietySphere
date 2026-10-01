@@ -293,6 +293,7 @@
 .section-kicker {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
   color: var(--theme);
   font-size: 0.74rem;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, CheckCircle2, Send, Save, Sparkles, ShieldCheck, RefreshCw, FileText } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Send, Save, Sparkles, ShieldCheck, RefreshCw, FileText, Compass } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { categoryColors } from "../utils/categoryStyles";
 import { isRecruitmentOpen } from "../utils/recruitmentUtils";
@@ -142,11 +142,14 @@ function Apply() {
   if (!recruitmentOpen) {
     return (
       <main className="page-container empty-page">
-        <h1>Recruitment Closed</h1>
-        <p>{society.name} is not accepting new applications at this time.</p>
-        <Link to={`/society/${society.id}`} className="secondary-btn">
-          View {society.name} profile
-        </Link>
+        <div className="empty-card">
+          <div className="alert-icon">🔒</div>
+          <h1>Recruitment Closed</h1>
+          <p>{society.name} is not accepting new applications at this time.</p>
+          <Link to={`/society/${society.id}`} className="secondary-btn">
+            View {society.name} profile
+          </Link>
+        </div>
       </main>
     );
   }
@@ -154,24 +157,27 @@ function Apply() {
   if (submitted) {
     return (
       <main className="page-container success-page">
-        <div className="success-icon">
-          <CheckCircle2 size={40} />
-        </div>
-        <div className="section-kicker">APPLICATION SUBMITTED</div>
-        <h1>You&apos;re officially on the candidate list!</h1>
-        <p>
-          Your application for <strong>{formData.role}</strong> at <strong>{society.name}</strong> has been saved. The society team will reach out regarding interviews and tasks.
-        </p>
-        <div className="success-actions">
-          <Link to="/profile?tab=applications" className="submit-app-btn">
-            View in Student Profile
-          </Link>
-          <Link to="/applications" className="secondary-btn">
-            All Applications
-          </Link>
-          <Link to="/societies" className="secondary-btn">
-            Explore More Societies
-          </Link>
+        <div className="success-page-container">
+          <div className="success-icon">
+            <CheckCircle2 size={40} />
+          </div>
+          <div className="section-kicker">APPLICATION SUBMITTED</div>
+          <h1>You&apos;re officially on the candidate list!</h1>
+          <p>
+            Your application for <strong>{formData.role}</strong> at <strong>{society.name}</strong> has been saved. The society team will reach out regarding interviews and tasks.
+          </p>
+          <div className="success-actions">
+            <Link to="/profile?tab=applications" className="submit-app-btn">
+              View in Student Profile
+            </Link>
+            <Link to="/applications" className="secondary-btn">
+              All Applications
+            </Link>
+            <Link to="/societies" className="secondary-btn">
+              <Compass size={16} />
+              Explore More Societies
+            </Link>
+          </div>
         </div>
       </main>
     );

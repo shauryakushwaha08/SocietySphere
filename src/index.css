@@ -50,14 +50,14 @@
 }
 
 [data-theme="light"] {
-  --bg: #F8F9FA;
+  --bg: #F4F6F5;
   --surface: #FFFFFF;
   --surface-hover: #F1F3F5;
   --surface-active: #E9ECEF;
   --border: #DEE2E6;
   --border-subtle: #E9ECEF;
   --border-strong: #CED4DA;
-  --text: #1A1D20;
+  --text: #141A16;
   --text-soft: #495057;
   --text-muted: #6C757D;
   --danger: #DC2626;

@@ -85,9 +85,9 @@ export default function DeadlineCountdown({ deadline, compact = false, showLabel
   return (
     <div className="deadline-countdown-container">
       {showLabel && (
-        <div className="countdown-header-label">
+        <div className="countdown-header-label" style={{width : "100%", display : "flex", justifyContent : "center"}}>
           <Clock size={14} className="countdown-pulse-icon" />
-          <span>RECRUITMENT APPLICATION CLOSES IN</span>
+          <span>APPLICATION CLOSES IN</span>
         </div>
       )}
       <div className="countdown-digits-grid">

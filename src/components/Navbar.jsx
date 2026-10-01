@@ -329,6 +329,7 @@ function Navbar({ theme, toggleTheme, onOpenSearch }) {
                     <button
                       type="button"
                       className="mobile-auth-btn-pill"
+                      style={{color: "var(--danger)"}}
                       onClick={() => {
                         setMobileMenuOpen(false);
                         logout();

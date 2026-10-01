@@ -333,7 +333,7 @@
   border-radius: 10px 10px 0 0;
   background: transparent;
   border: none;
-  font-size: 0.9375rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-muted);
   cursor: pointer;
@@ -534,7 +534,7 @@
 /* Bookmarks Panel */
 .profile-bookmarks-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 1.25rem;
 }
 
@@ -604,6 +604,7 @@
   padding: 2rem;
   box-shadow: var(--card-shadow);
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 1.5rem;
 }
@@ -613,17 +614,20 @@
   font-weight: 700;
   color: var(--text);
   font-family: var(--font-heading, "Zilla Slab", serif);
-  border-bottom: 1px solid var(--border-subtle);
-  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--theme);
+  border-radius: 2px;
+  padding-bottom: 0.2rem;
 }
 
 .profile-form-grid {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 1.25rem;
 }
 
 .profile-field-group {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -640,7 +644,7 @@
 .profile-field-textarea {
   width: 100%;
   padding: 0.7rem 0.9rem;
-  background: var(--surface-hover);
+  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   color: var(--text);
@@ -675,7 +679,7 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.3rem 0.65rem;
-  background: var(--surface-hover);
+  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 0.8125rem;
@@ -746,7 +750,10 @@
   .profile-hero-actions > button{
     font-size: 0.75rem;
   }
-  .profile-action-btn span{
+  .profile-hero-actions span{
     display: none;
+  }
+  .profile-bio-box{
+    font-size: 0.85rem;
   }
 }

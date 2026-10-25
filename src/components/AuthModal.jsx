@@ -19,7 +19,7 @@ import { NSUT_BRANCHES, ACADEMIC_YEARS } from "../utils/auth";
 import "./AuthModal.css";
 
 function AuthModalDialog({ initialTab }) {
-  const { closeAuthModal, login, register, loginDemo } = useAuth();
+  const { closeAuthModal, login, register } = useAuth();
   const [tab, setTab] = useState(initialTab || "login");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -67,18 +67,6 @@ function AuthModalDialog({ initialTab }) {
       await register(registerData);
     } catch (err) {
       setError(err.message || "Registration failed.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleDemoLogin = async () => {
-    setError("");
-    setSubmitting(true);
-    try {
-      await loginDemo();
-    } catch (err) {
-      setError(err.message || "Failed to sign in as demo student.");
     } finally {
       setSubmitting(false);
     }
@@ -142,28 +130,7 @@ function AuthModalDialog({ initialTab }) {
       </div>
 
       <div className="auth-body">
-        {/* Quick Demo Switcher */}
-        <div className="demo-account-box">
-          <div className="demo-account-text">
-            <span className="demo-account-title">
-              <Sparkles size={14} style={{ color: "var(--theme)" }} />
-              Instant Demo Profile
-            </span>
-            <span className="demo-account-desc">
-              Sign in as <strong>John Doe</strong> (2nd Year CSE) with preloaded records.
-            </span>
-          </div>
-          <button
-            type="button"
-            className="demo-action-btn"
-            onClick={handleDemoLogin}
-            disabled={submitting}
-          >
-            1-Click Sign In
-          </button>
-        </div>
-
-        <div className="auth-divider">or enter details</div>
+        <div className="auth-divider">enter details</div>
 
         {error && (
           <div className="auth-error-banner" role="alert">
@@ -202,7 +169,7 @@ function AuthModalDialog({ initialTab }) {
                   id="login-password"
                   type="password"
                   className="auth-input"
-                  placeholder="Enter password (optional for demo)"
+                  placeholder="Enter password"
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                 />

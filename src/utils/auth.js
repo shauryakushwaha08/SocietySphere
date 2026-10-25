@@ -23,38 +23,19 @@ export const ACADEMIC_YEARS = [
   "4th Year",
 ];
 
-// Pre-seeded demo student user
-export const DEFAULT_DEMO_USER = {
-  id: "user_nsut_demo_01",
-  name: "John Doe",
-  email: "john.ug24@nsut.ac.in",
-  rollNo: "2024UCS1024",
-  branch: "Computer Science and Engineering (CSE)",
-  year: "2nd Year",
-  phone: "+91 9988445588",
-  cgpa: "9.85",
-  bio: "Passionate full-stack developer & open-source enthusiast interested in web systems and developer communities.",
-  portfolio: "https://github.com/",
-  linkedin: "https://linkedin.com/",
-  skills: ["React", "JavaScript", "UI/UX", "Node.js", "Python"],
-  avatar: "JD",
-  role: "student",
-  verified: true,
-  createdAt: "2026-09-01T10:00:00.000Z",
-};
 
 // Initialize registered users database if not present
 function getRegisteredUsers() {
   try {
     const raw = localStorage.getItem(USERS_DB_KEY);
     if (!raw) {
-      const initial = [DEFAULT_DEMO_USER];
+      const initial = [];
       localStorage.setItem(USERS_DB_KEY, JSON.stringify(initial));
       return initial;
     }
     return JSON.parse(raw);
   } catch {
-    return [DEFAULT_DEMO_USER];
+    return [];
   }
 }
 
@@ -89,7 +70,7 @@ export function loginUser(email, password) {
     throw new Error("No student account found with this email. Please register first.");
   }
 
-  // Check password if user has one stored, or allow demo password
+  // Check password if user has one stored
   if (user.password && user.password !== password) {
     throw new Error("Invalid password. Please check your credentials.");
   }
@@ -195,19 +176,4 @@ export function updateProfile(updatedFields) {
 export function logoutUser() {
   localStorage.removeItem(AUTH_USER_KEY);
   window.dispatchEvent(new CustomEvent("societysphere:auth-changed", { detail: null }));
-}
-
-// Quick switch to demo student account
-export function loginAsDemoStudent() {
-  const users = getRegisteredUsers();
-  let demo = users.find((u) => u.email === DEFAULT_DEMO_USER.email);
-  if (!demo) {
-    demo = DEFAULT_DEMO_USER;
-    saveRegisteredUsers([...users, demo]);
-  }
-  const sessionUser = { ...demo };
-  delete sessionUser.password;
-  localStorage.setItem(AUTH_USER_KEY, JSON.stringify(sessionUser));
-  window.dispatchEvent(new CustomEvent("societysphere:auth-changed", { detail: sessionUser }));
-  return sessionUser;
 }

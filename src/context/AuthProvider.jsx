@@ -6,7 +6,6 @@ import {
   registerUser,
   logoutUser,
   updateProfile as updateProfileUtil,
-  loginAsDemoStudent,
 } from "../utils/auth";
 
 export function AuthProvider({ children }) {
@@ -54,16 +53,6 @@ export function AuthProvider({ children }) {
     return loggedUser;
   };
 
-  const loginDemo = async () => {
-    const demoUser = loginAsDemoStudent();
-    setUser(demoUser);
-    if (authModalState.onSuccessCallback) {
-      authModalState.onSuccessCallback(demoUser);
-    }
-    closeAuthModal();
-    return demoUser;
-  };
-
   const register = async (userData) => {
     const registeredUser = registerUser(userData);
     setUser(registeredUser);
@@ -91,7 +80,6 @@ export function AuthProvider({ children }) {
         user,
         isAuthenticated: Boolean(user),
         login,
-        loginDemo,
         register,
         logout,
         updateUser,
